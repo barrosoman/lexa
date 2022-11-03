@@ -1,0 +1,20 @@
+<id, sum>
+<parenthesis, (>
+<id, a>
+<colon, :>
+<id, int>
+<comma, ,>
+<id, b>
+<colon, :>
+<id, int>
+<parenthesis, )>
+<colon, :>
+<id, int>
+<bracket, {>
+<id, return>
+<id, a>
+<a_op, +>
+<id, b>
+<semicolon, ;>
+<bracket, }>
+DEBUG: Line_count = 3
