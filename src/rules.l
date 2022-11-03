@@ -20,7 +20,7 @@ BRACES         ['{''}']
 COMMA          (",")
 SEMICOLON      (";")
 COLON          (":")
-
+NUMBER         [+-]?{DIGIT}+(\.{DIGIT}+)?(E{DIGIT}+)? 
 
 
 %%
@@ -28,11 +28,11 @@ COLON          (":")
 {EOL} {
     line_count++;
 }
+{NUMBER} {
+    print_token("number", yytext);
+}
 {DIGIT}+{ID} {
     printf("Invalid number (%s) at line %d \n", yytext, line_count);
-}
-{DIGIT}+ {
-    print_token("number", yytext);
 }
 {L_OP} {
     print_token("l_op", yytext);
