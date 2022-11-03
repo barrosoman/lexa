@@ -21,13 +21,44 @@ COMMA          (",")
 SEMICOLON      (";")
 COLON          (":")
 NUMBER         [+-]?{DIGIT}+(\.{DIGIT}+)?(E{DIGIT}+)? 
-
+BOOL           bool
+CHAR           char
+SHORT          short
+INTEGER        int
+FLOAT          float
+LONG           long
+DOUBLE         double
+STATIC         static
+RETURN         return
+CONST          const
+IF             if
+FOR            for
+WHILE          while
+SWITCH         switch
+CASE           case
+BREAK          break
 
 %%
 {WS}            // Ignore whitespace
 {EOL} {
     line_count++;
 }
+{BOOL}    { print_token("bool", yytext); }
+{CHAR}    { print_token("char", yytext); }
+{SHORT}   { print_token("short", yytext); }
+{INTEGER} { print_token("integer", yytext); }
+{FLOAT}   { print_token("float", yytext); }
+{LONG}    { print_token("long", yytext); }
+{DOUBLE}  { print_token("double", yytext); }
+{STATIC}  { print_token("static", yytext); }
+{RETURN}  { print_token("return", yytext); }
+{CONST}   { print_token("const", yytext); }
+{IF}      { print_token("if", yytext); }
+{FOR}     { print_token("for", yytext); }
+{WHILE}   { print_token("while", yytext); }
+{SWITCH}  { print_token("switch", yytext); }
+{CASE}    { print_token("case", yytext); }
+{BREAK}   { print_token("break", yytext); }
 {NUMBER} {
     print_token("number", yytext);
 }
