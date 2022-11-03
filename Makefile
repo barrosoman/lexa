@@ -4,6 +4,3 @@ build:
 
 clean:
 	rm src/generate_code.c lexa
-
-run: build
-	./lexa temp_file

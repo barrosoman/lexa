@@ -29,14 +29,10 @@ COLON          (":")
     line_count++;
 }
 {DIGIT}+{ID} {
-    printf("Invalid number (\"%s)\n", yytext);
+    printf("Invalid number (%s) at line %d \n", yytext, line_count);
 }
 {DIGIT}+ {
     print_token("number", yytext);
-}
-{L_OP}{A_OP}+ {
-    printf("Token invalid at %d (\"%s\")\n", yytext);
-    printf("Expected only one logic operator.\n");
 }
 {L_OP} {
     print_token("l_op", yytext);
@@ -75,7 +71,7 @@ COLON          (":")
     print_token("assign_op", yytext);
 }
 . {
-    printf("Unrecognized character: %s\n", yytext);
+    printf("Unrecognized character: %s at line %d\n", yytext, line_count);
 }
 
 %%

@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int *array_create(int size)
+{
+	int *array;
+
+	array = (int *)malloc(sizeof(int) * size);
+
+	for (int i = 0; i < size; i++)
+		array[i] = 0;
+
+	return array;
+}
+
+int array_print(int *array, int size)
+{
+	for (int i = 0; i < size; i++)
+		printf("%d ", array[i]);
+	printf("\n");
+}
+
+int main(void)
+{
+	int *array = array_create(100);
+	array_print(array, 100);
+	return 0;
+}
