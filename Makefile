@@ -3,4 +3,4 @@ build:
 	gcc -o lexa src/generated_code.c -lfl -lm
 
 clean:
-	rm src/generate_code.c lexa
+	rm src/generated_code.c lexa
