@@ -3,7 +3,7 @@
 #include <math.h>
     int line_count = 1;
 
-    void print_token(char *name, char *value);
+    void print_token(const char *name, const char *value);
 %}
 
 DIGIT          [0-9]
@@ -107,11 +107,11 @@ BREAK          break
 
 %%
 
-void print_token(char *name, char *value) {
+void print_token(const char *name, const char *value) {
     printf("<%s, %s>\n", name, value);    
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
     if (argc > 1) {
         yyin = fopen(argv[1], "r");
     } else {
