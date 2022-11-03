@@ -1,6 +1,11 @@
+GENERATED_CODE=src/generated_code.c
+RULES=src/rules.l
+LIBS=-lfl -lm
+OUTPUT=lexa
+
 build:
-	flex -o src/generated_code.c  src/rules.l
-	gcc -o lexa src/generated_code.c -lfl -lm
+	flex -o ${GENERATED_CODE} ${RULES}
+	gcc -o ${OUTPUT} ${GENERATED_CODE} ${LIBS}
 
 clean:
-	rm src/generated_code.c lexa
+	rm ${GENERATED_CODE} ${OUTPUT}
