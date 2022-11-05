@@ -20,7 +20,7 @@ BRACES         ['{''}']
 COMMA          (",")
 SEMICOLON      (";")
 COLON          (":")
-NUMBER         [+-]?{DIGIT}+(\.{DIGIT}+)?(E{DIGIT}+)? 
+NUMBER         {DIGIT}+(\.{DIGIT}+)?([eE][+-]?{DIGIT}+)? 
 BOOL           bool
 CHAR           char
 SHORT          short
