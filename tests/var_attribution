@@ -1,0 +1,10 @@
+bool a1 = true;
+char a2 = 'x';
+short a3 = 8510;
+int a4 = 1092384;
+float a5 = 2.90;
+long a6 = 5954983293192;
+double a7 = 0.1;
+bool b1 = 2 > 1;
+int b2 = 10 * 20;
+double b3 = 5.8 * 1.5;

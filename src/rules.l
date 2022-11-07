@@ -48,11 +48,14 @@ DOUBLE         double
 RETURN         return
 CONST          const
 IF             if
+ELSE           else
 FOR            for
 WHILE          while
 SWITCH         switch
 CASE           case
 BREAK          break
+TRUE           true
+FALSE          false
 
 %%
 {WS}            // Ignore whitespace
@@ -69,11 +72,14 @@ BREAK          break
 {RETURN}  { print_token("return", yytext); }
 {CONST}   { print_token("const", yytext); }
 {IF}      { print_token("if", yytext); }
+{ELSE}    { print_token("else", yytext); }
 {FOR}     { print_token("for", yytext); }
 {WHILE}   { print_token("while", yytext); }
 {SWITCH}  { print_token("switch", yytext); }
 {CASE}    { print_token("case", yytext); }
 {BREAK}   { print_token("break", yytext); }
+{TRUE}    { print_token("true", yytext); }
+{FALSE}   { print_token("false", yytext); }
 {LBRACE}  { print_token("lbrace", yytext); }
 {RBRACE}  { print_token("rbrace", yytext); }
 {NUMBER} {

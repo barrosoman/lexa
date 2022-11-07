@@ -1,0 +1,3 @@
+if (a >= b) {
+  printf("a é maior ou igual a b.\n");
+}

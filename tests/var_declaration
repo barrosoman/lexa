@@ -1,0 +1,7 @@
+bool a1;
+char a2;
+short a3;
+int a4;
+float a5;
+long a6;
+double a7;

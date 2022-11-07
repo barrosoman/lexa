@@ -1,0 +1,12 @@
+char c = getchar();
+
+switch (c) {
+  case 'A': {
+    printf("Letra inserida é um A maiúsculo.\n");
+    break;
+  }
+  case 'a': {
+    printf("Letra inserida é um a mínusculo.\n");
+    break;
+  }
+}

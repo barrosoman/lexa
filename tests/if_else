@@ -1,0 +1,5 @@
+if (a >= b) {
+  print("a é maior ou igual a b.\n");
+} else {
+  printf("a é menor que b.\n");
+}

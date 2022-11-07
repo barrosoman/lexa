@@ -1,0 +1,7 @@
+if (true) {
+  printf("condição sempre aceita.\n");
+}
+
+if (false) {
+  print("condição nunca aceita.\n");
+}
