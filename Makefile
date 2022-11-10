@@ -1,6 +1,6 @@
 GENERATED_CODE	:= src/generated_code.c
 RULES			:= src/rules.l
-LIBS			:= -lfl -lm
+LIBS			:= -lfl
 OUTPUT			:= lexa
 TEST			:= $(notdir $(wildcard tests/*))
 
