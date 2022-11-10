@@ -71,6 +71,7 @@ RBRACE         "}"
 COMMA          ,
 SEMICOLON      ;
 COLON          :
+VOID           void
 BOOL           bool
 CHAR           char
 SHORT          short
@@ -97,6 +98,7 @@ FALSE          false
     line_count++;
 }
 
+{VOID}    |
 {BOOL}    |
 {CHAR}    |
 {SHORT}   |
