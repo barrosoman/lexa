@@ -77,6 +77,7 @@ LBRACKET       "["
 RBRACKET       "]"
 LBRACE         "{"
 RBRACE         "}"
+DOT            \.
 COMMA          ,
 SEMICOLON      ;
 COLON          :
@@ -159,6 +160,7 @@ FALSE          false
 {DIV_EQUAL}   { print_token("DIV_EQUAL", PRINT_TOKEN_ARITHMETIC_OP); }
 
 {SEMICOLON}  { print_token("SEMICOLON", PRINT_TOKEN_PUNCTUATION); }
+{DOT}        { print_token("DOT", PRINT_TOKEN_PUNCTUATION); }
 {COMMA}      { print_token("COMMA",  PRINT_TOKEN_PUNCTUATION); }
 {LBRACE}     { print_token("LBRACE", PRINT_TOKEN_PUNCTUATION); }
 {RBRACE}     { print_token("RBRACE", PRINT_TOKEN_PUNCTUATION); }
