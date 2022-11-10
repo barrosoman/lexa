@@ -17,6 +17,7 @@
   #define PRINT_TOKEN_ARITHMETIC_OP     (0x7)
   #define PRINT_TOKEN_PUNCTUATION       (0x8)
   #define PRINT_TOKEN_LITERAL_CHARACTER (0x9)
+  #define PRINT_TOKEN_ASSIGN_OP         (0xA)
 
   /**
    * This variable is used to mark the current line that
@@ -50,6 +51,7 @@ DIGIT          [0-9]
 LETTER         [a-zA-Z'_']
 ID             {LETTER}({LETTER}|{DIGIT})*
 NUMBER         {DIGIT}+(\.{DIGIT}+)?([eE][+-]?{DIGIT}+)? 
+COMMENT        #.*\n
 WS             [ \t]
 EOL            [\n]
 PLUS           "+"
@@ -103,6 +105,7 @@ FALSE          false
 
 %%
 {WS}            // Ignore whitespace
+{COMMENT}       // Ignore comments
 {EOL} {
     line_count++;
 }
@@ -147,7 +150,7 @@ FALSE          false
 
 {ID} { print_token("id", PRINT_TOKEN_IDENTIFIER); }
 
-{ASSIGN}      { print_token("ASSIGN", PRINT_TOKEN); }
+{ASSIGN}      { print_token("ASSIGN", PRINT_TOKEN_ASSIGN_OP); }
 
 {PLUS}        { print_token("PLUS", PRINT_TOKEN_ARITHMETIC_OP); } 
 {MINUS}       { print_token("MINUS", PRINT_TOKEN_ARITHMETIC_OP); }
@@ -213,6 +216,9 @@ void print_token(const char *token_name, unsigned int printing_type) {
         break;
       case PRINT_TOKEN_LITERAL_CHARACTER:
         printf("O literal de caractere \x1b[33m%s\x1b[0m foi reconhecido!\n", yytext);
+        break;
+      case PRINT_TOKEN_ASSIGN_OP:
+        printf("O operador de atribuição \x1b[33m%s\x1b[0m foi reconhecido!\n", yytext);
         break;
    }
 }
