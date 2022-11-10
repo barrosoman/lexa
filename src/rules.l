@@ -56,8 +56,9 @@ PLUS_EQUAL     "+="
 MINUS_EQUAL    "-="
 MUL_EQUAL      "*="
 DIV_EQUAL      "/="
-AND            "AND"
-OR             "OR"
+NOT            not
+AND            and
+OR             or
 EQUAL          "="
 NOT_EQUAL      "!="
 LT             "<"
@@ -125,6 +126,7 @@ FALSE          false
 {NUMBER}     { print_token("NUMBER", PRINT_TOKEN_NUMBER); }
 {DIGIT}+{ID} { printf("Identificador inválido: \x1b[33m%s\x1b[0m na linha %d.\n", yytext, line_count); }
 
+{NOT}       { print_token("NOT", PRINT_TOKEN_LOGICAL_OP); }
 {AND}       { print_token("AND", PRINT_TOKEN_LOGICAL_OP); }
 {OR}        { print_token("OR", PRINT_TOKEN_LOGICAL_OP); }
 {EQUAL}     { print_token("EQUAL", PRINT_TOKEN_LOGICAL_OP); } 
