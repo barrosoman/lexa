@@ -24,8 +24,14 @@
    * is being analyzed by the lexer. Further, it is used
    * to inform which line has occurred a lexer error.
    */  
-   unsigned int line_count = 1;
+  unsigned int line_count = 1;
   
+  /**
+   * This variable is use to store the amount of invalid
+   * characters that has been from the standard input.
+   */
+  unsigned int invalid_ch_count = 0;
+
   /**
    * This variable is used to store the options that is
    * provided by the user in the command-line tool.
@@ -164,6 +170,7 @@ FALSE          false
 
 . {
     printf("Caractere desconhecido: \x1b[33m%s\x1b[0m na linha %d.\n", yytext, line_count);
+    invalid_ch_count++;
 }
 
 %%
@@ -230,6 +237,9 @@ int main(int argc, char **argv) {
 
     yylex();
 
-    if (options & OPT_DEBUG_BIT)
-      printf("DEBUG: Line_count = %d\n", line_count);
+    if (options & OPT_DEBUG_BIT) {
+      printf("\n[DEBUG]\n");
+      printf("Line Count: %d.\n", line_count);
+      printf("Invalid Character Count: %d.\n", invalid_ch_count);
+    }
 }
