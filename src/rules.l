@@ -123,7 +123,7 @@ FALSE          false
 {FALSE}    { print_token(yytext, PRINT_TOKEN_KEYWORD); }
 
 {NUMBER}     { print_token("NUMBER", PRINT_TOKEN_NUMBER); }
-{DIGIT}+{ID} { printf("O número \x1b[33m%s\x1b[0m na linha %d é inválido.\n", yytext, line_count); }
+{DIGIT}+{ID} { printf("Identificador inválido: \x1b[33m%s\x1b[0m na linha %d.\n", yytext, line_count); }
 
 {AND}       { print_token("AND", PRINT_TOKEN_LOGICAL_OP); }
 {OR}        { print_token("OR", PRINT_TOKEN_LOGICAL_OP); }
@@ -161,7 +161,7 @@ FALSE          false
 {COLON}      { print_token("COLON", PRINT_TOKEN_PUNCTUATION); }
 
 . {
-    printf("Unrecognized character: %s at line %d\n", yytext, line_count);
+    printf("Caractere desconhecido: \x1b[33m%s\x1b[0m na linha %d.\n", yytext, line_count);
 }
 
 %%
