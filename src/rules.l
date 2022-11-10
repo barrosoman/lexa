@@ -8,14 +8,16 @@
   #define OPT_DEBUG_BIT      (0x1)
   #define OPT_NO_VERBOSE_BIT (0x2)
 
-  #define PRINT_TOKEN                  (0x0)
-  #define PRINT_TOKEN_KEYWORD          (0x1)
-  #define PRINT_TOKEN_KEYWORD_DATATYPE (0x2)
-  #define PRINT_TOKEN_IDENTIFIER       (0x3)
-  #define PRINT_TOKEN_NUMBER           (0x4)
-  #define PRINT_TOKEN_STRING           (0x5)
-  #define PRINT_TOKEN_LOGICAL_OP       (0x6)
-  #define PRINT_TOKEN_ARITHMETIC_OP    (0x7)
+  #define PRINT_TOKEN                   (0x0)
+  #define PRINT_TOKEN_KEYWORD           (0x1)
+  #define PRINT_TOKEN_KEYWORD_DATATYPE  (0x2)
+  #define PRINT_TOKEN_IDENTIFIER        (0x3)
+  #define PRINT_TOKEN_NUMBER            (0x4)
+  #define PRINT_TOKEN_LITERAL_STRING    (0x5)
+  #define PRINT_TOKEN_LOGICAL_OP        (0x6)
+  #define PRINT_TOKEN_ARITHMETIC_OP     (0x7)
+  #define PRINT_TOKEN_PUNCTUATION       (0x8)
+  #define PRINT_TOKEN_LITERAL_CHARACTER (0x9)
 
   /**
    * This variable is used to mark the current line that
@@ -120,7 +122,7 @@ FALSE          false
 {TRUE}     |
 {FALSE}    { print_token(yytext, PRINT_TOKEN_KEYWORD); }
 
-{NUMBER}     { print_token("number", PRINT_TOKEN_NUMBER); }
+{NUMBER}     { print_token("NUMBER", PRINT_TOKEN_NUMBER); }
 {DIGIT}+{ID} { printf("O número \x1b[33m%s\x1b[0m na linha %d é inválido.\n", yytext, line_count); }
 
 {AND}       { print_token("AND", PRINT_TOKEN_LOGICAL_OP); }
@@ -132,11 +134,12 @@ FALSE          false
 {GT}        { print_token("GT", PRINT_TOKEN_LOGICAL_OP); }
 {GTE}       { print_token("GTE", PRINT_TOKEN_LOGICAL_OP); }
 
-\".*\" { print_token("string", PRINT_TOKEN_STRING); }
+\".*\"                 { print_token("LITERAL_STRING", PRINT_TOKEN_LITERAL_STRING); }
+\'({LETTER}|{DIGIT})\' { print_token("LITERAL_CHARACTER", PRINT_TOKEN_LITERAL_CHARACTER); }
 
 {ID} { print_token("id", PRINT_TOKEN_IDENTIFIER); }
 
-{ASSIGN}      { print_token("assign", PRINT_TOKEN); }
+{ASSIGN}      { print_token("ASSIGN", PRINT_TOKEN); }
 
 {PLUS}        { print_token("PLUS", PRINT_TOKEN_ARITHMETIC_OP); } 
 {MINUS}       { print_token("MINUS", PRINT_TOKEN_ARITHMETIC_OP); }
@@ -147,15 +150,15 @@ FALSE          false
 {MUL_EQUAL}   { print_token("MUL_EQUAL", PRINT_TOKEN_ARITHMETIC_OP); }
 {DIV_EQUAL}   { print_token("DIV_EQUAL", PRINT_TOKEN_ARITHMETIC_OP); }
 
-{SEMICOLON} { print_token("semicolon", PRINT_TOKEN); }
-{COMMA}     { print_token("comma",  PRINT_TOKEN); }
-{LBRACE}    { print_token("lbrace", PRINT_TOKEN); }
-{RBRACE}    { print_token("rbrace", PRINT_TOKEN); }
-{LPAREN}    { print_token("lparen", PRINT_TOKEN); }
-{RPAREN}    { print_token("rparen", PRINT_TOKEN); }
-{LBRACKET}  { print_token("lbracket", PRINT_TOKEN); }
-{RBRACKET}  { print_token("rbracket", PRINT_TOKEN); }
-{COLON}     { print_token("colon", PRINT_TOKEN); }
+{SEMICOLON}  { print_token("SEMICOLON", PRINT_TOKEN_PUNCTUATION); }
+{COMMA}      { print_token("COMMA",  PRINT_TOKEN_PUNCTUATION); }
+{LBRACE}     { print_token("LBRACE", PRINT_TOKEN_PUNCTUATION); }
+{RBRACE}     { print_token("RBRACE", PRINT_TOKEN_PUNCTUATION); }
+{LPAREN}     { print_token("LPAREN", PRINT_TOKEN_PUNCTUATION); }
+{RPAREN}     { print_token("RPAREN", PRINT_TOKEN_PUNCTUATION); }
+{LBRACKET}   { print_token("LBRACKET", PRINT_TOKEN_PUNCTUATION); }
+{RBRACKET}   { print_token("RBRACKET", PRINT_TOKEN_PUNCTUATION); }
+{COLON}      { print_token("COLON", PRINT_TOKEN_PUNCTUATION); }
 
 . {
     printf("Unrecognized character: %s at line %d\n", yytext, line_count);
@@ -186,14 +189,20 @@ void print_token(const char *token_name, unsigned int printing_type) {
       case PRINT_TOKEN_NUMBER:
         printf("O número \x1b[33m%s\x1b[0m foi reconhecido!\n", yytext);
         break;
-      case PRINT_TOKEN_STRING: 
-        printf("A string \x1b[33m%s\x1b[0m foi reconhecida!\n", yytext);
+      case PRINT_TOKEN_LITERAL_STRING: 
+        printf("O literal de string \x1b[33m%s\x1b[0m foi reconhecido!\n", yytext);
         break;
       case PRINT_TOKEN_LOGICAL_OP:
         printf("O operador lógico \x1b[33m%s\x1b[0m foi reconhecido!\n", yytext);
         break;
       case PRINT_TOKEN_ARITHMETIC_OP:
         printf("O operador aritmético \x1b[33m%s\x1b[0m foi reconhecido!\n", yytext);
+        break;
+      case PRINT_TOKEN_PUNCTUATION:
+        printf("O caractere de pontuação \x1b[33m%s\x1b[0m foi reconhecido!\n", yytext);
+        break;
+      case PRINT_TOKEN_LITERAL_CHARACTER:
+        printf("O literal de caractere \x1b[33m%s\x1b[0m foi reconhecido!\n", yytext);
         break;
    }
 }
