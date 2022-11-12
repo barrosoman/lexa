@@ -52,6 +52,65 @@ float t1;
 double var584;
 
 #
+# Tipos de Dados
+#
+
+bool
+char
+short
+int
+float
+long
+double
+void
+
+#
+# Operador de Atribuição
+#
+
+:=
+
+#
+# Operadores Aritméticos
+#
+
++
+-
+*
+/
++=
+-=
+*=
+/=
+
+#
+# Operadores Lógicos
+#
+
+not
+and
+or
+>
+<
+>=
+<=
+
+#
+# Caracteres de Pontuação
+#
+
+.
+;
+:
+,
+(
+)
+[
+]
+{
+}
+
+#
 # Atribuções de Variáveis & Expressões
 #
 
