@@ -148,7 +148,7 @@ int soma(int a, int b) {
 }
 
 double pow(double base, int exp) {
-  if (exp == 0) {
+  if (exp = 0) {
     return 1.0;
   }
 
