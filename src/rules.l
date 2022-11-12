@@ -60,10 +60,10 @@ MINUS          "-"
 MUL            "*"
 DIV            "/"
 ASSIGN         ":="
-PLUS_EQUAL     "+="
-MINUS_EQUAL    "-="
-MUL_EQUAL      "*="
-DIV_EQUAL      "/="
+PLUS_ASSIGN    "+="
+MINUS_ASSIGN   "-="
+MUL_ASSIGN     "*="
+DIV_ASSIGN     "/="
 NOT            not
 AND            and
 OR             or
@@ -153,14 +153,14 @@ FALSE          false
 
 {ASSIGN}      { print_token("ASSIGN", PRINT_TOKEN_ASSIGN_OP); }
 
-{PLUS}        { print_token("PLUS", PRINT_TOKEN_ARITHMETIC_OP); } 
-{MINUS}       { print_token("MINUS", PRINT_TOKEN_ARITHMETIC_OP); }
-{MUL}         { print_token("MUL", PRINT_TOKEN_ARITHMETIC_OP); }
-{DIV}         { print_token("DIV", PRINT_TOKEN_ARITHMETIC_OP); }
-{PLUS_EQUAL}  { print_token("PLUS_EUAL", PRINT_TOKEN_ARITHMETIC_OP); }
-{MINUS_EQUAL} { print_token("MINUS_EQUAL", PRINT_TOKEN_ARITHMETIC_OP); }
-{MUL_EQUAL}   { print_token("MUL_EQUAL", PRINT_TOKEN_ARITHMETIC_OP); }
-{DIV_EQUAL}   { print_token("DIV_EQUAL", PRINT_TOKEN_ARITHMETIC_OP); }
+{PLUS}         { print_token("PLUS", PRINT_TOKEN_ARITHMETIC_OP); } 
+{MINUS}        { print_token("MINUS", PRINT_TOKEN_ARITHMETIC_OP); }
+{MUL}          { print_token("MUL", PRINT_TOKEN_ARITHMETIC_OP); }
+{DIV}          { print_token("DIV", PRINT_TOKEN_ARITHMETIC_OP); }
+{PLUS_ASSIGN}  { print_token("PLUS_ASSIGN", PRINT_TOKEN_ARITHMETIC_OP); }
+{MINUS_ASSIGN} { print_token("MINUS_ASSIGN", PRINT_TOKEN_ARITHMETIC_OP); }
+{MUL_ASSIGN}   { print_token("MUL_ASSIGN", PRINT_TOKEN_ARITHMETIC_OP); }
+{DIV_ASSIGN}   { print_token("DIV_ASSIGN", PRINT_TOKEN_ARITHMETIC_OP); }
 
 {SEMICOLON}  { print_token("SEMICOLON", PRINT_TOKEN_PUNCTUATION); }
 {DOT}        { print_token("DOT", PRINT_TOKEN_PUNCTUATION); }

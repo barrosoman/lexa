@@ -3,3 +3,9 @@ lexa
 
 # Auto-generated lexical analyzer
 src/generated_code.c
+
+# Results
+results
+
+# PDFs
+*.pdf
