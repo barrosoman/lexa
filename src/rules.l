@@ -20,6 +20,14 @@
   #define PRINT_TOKEN_LITERAL_CHARACTER (0x9)
   #define PRINT_TOKEN_ASSIGN_OP         (0xA)
 
+  #ifdef __linux__
+    #define CONSOLE_COLOR_YELLOW "\x1b[33m"
+    #define CONSOLE_COLOR_RESET  "\x1b[0m"
+  #else
+    #define CONSOLE_COLOR_YELLOW ""
+    #define CONSOLE_COLOR_RESET  ""
+  #endif
+
   /**
    * This variable is used to mark the current line that
    * is being analyzed by the lexer. Further, it is used
@@ -189,37 +197,37 @@ void print_token(const char *token_name, unsigned int printing_type) {
 
     switch (printing_type) {
       case PRINT_TOKEN:
-        printf("O token \x1b[33m%s\x1b[0m foi reconhecido!\n", yytext);
+        printf("O token %s%s%s foi reconhecido!\n", CONSOLE_COLOR_YELLOW, yytext, CONSOLE_COLOR_RESET);
         break;
       case PRINT_TOKEN_KEYWORD:
-        printf("A palavra-chave \x1b[33m%s\x1b[0m foi reconhecida!\n", yytext);
+        printf("A palavra-chave %s%s%s foi reconhecida!\n", CONSOLE_COLOR_YELLOW, yytext, CONSOLE_COLOR_RESET);
         break;
       case PRINT_TOKEN_KEYWORD_DATATYPE:
-        printf("A palavra-chave \x1b[33m%s\x1b[0m que é um tipo de dado foi reconhecida!\n", yytext);
+        printf("A palavra-chave %s%s%s que é um tipo de dado foi reconhecida!\n", CONSOLE_COLOR_YELLOW, yytext, CONSOLE_COLOR_RESET);
         break;
       case PRINT_TOKEN_IDENTIFIER:
-        printf("O identificador \x1b[33m%s\x1b[0m foi reconhecido!\n", yytext);
+        printf("O identificador %s%s%s foi reconhecido!\n", CONSOLE_COLOR_YELLOW, yytext, CONSOLE_COLOR_RESET);
         break;
       case PRINT_TOKEN_NUMBER:
-        printf("O número \x1b[33m%s\x1b[0m foi reconhecido!\n", yytext);
+        printf("O número %s%s%s foi reconhecido!\n", CONSOLE_COLOR_YELLOW, yytext, CONSOLE_COLOR_RESET);
         break;
       case PRINT_TOKEN_LITERAL_STRING: 
-        printf("O literal de string \x1b[33m%s\x1b[0m foi reconhecido!\n", yytext);
+        printf("O literal de string %s%s%s foi reconhecido!\n", CONSOLE_COLOR_YELLOW, yytext, CONSOLE_COLOR_RESET);
         break;
       case PRINT_TOKEN_LOGICAL_OP:
-        printf("O operador lógico \x1b[33m%s\x1b[0m foi reconhecido!\n", yytext);
+        printf("O operador lógico %s%s%s foi reconhecido!\n", CONSOLE_COLOR_YELLOW, yytext, CONSOLE_COLOR_RESET);
         break;
       case PRINT_TOKEN_ARITHMETIC_OP:
-        printf("O operador aritmético \x1b[33m%s\x1b[0m foi reconhecido!\n", yytext);
+        printf("O operador aritmético %s%s%s foi reconhecido!\n", CONSOLE_COLOR_YELLOW, yytext, CONSOLE_COLOR_RESET);
         break;
       case PRINT_TOKEN_PUNCTUATION:
-        printf("O caractere de pontuação \x1b[33m%s\x1b[0m foi reconhecido!\n", yytext);
+        printf("O caractere de pontuação %s%s%s foi reconhecido!\n", CONSOLE_COLOR_YELLOW, yytext, CONSOLE_COLOR_RESET);
         break;
       case PRINT_TOKEN_LITERAL_CHARACTER:
-        printf("O literal de caractere \x1b[33m%s\x1b[0m foi reconhecido!\n", yytext);
+        printf("O literal de caractere %s%s%s foi reconhecido!\n", CONSOLE_COLOR_YELLOW, yytext, CONSOLE_COLOR_RESET);
         break;
       case PRINT_TOKEN_ASSIGN_OP:
-        printf("O operador de atribuição \x1b[33m%s\x1b[0m foi reconhecido!\n", yytext);
+        printf("O operador de atribuição %s%s%s foi reconhecido!\n", CONSOLE_COLOR_YELLOW, yytext, CONSOLE_COLOR_RESET);
         break;
    }
 }
