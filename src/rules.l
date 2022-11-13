@@ -142,7 +142,7 @@ FALSE          false
 {FALSE}    { print_token(yytext, PRINT_TOKEN_KEYWORD); }
 
 {NUMBER}     { print_token("NUMBER", PRINT_TOKEN_NUMBER); }
-{DIGIT}+{ID} { printf("Identificador inválido: \x1b[33m%s\x1b[0m na linha %d.\n", yytext, line_count); }
+{DIGIT}+{ID} { printf("Identificador inválido: %s%s%s na linha %d.\n", CONSOLE_COLOR_YELLOW, yytext, CONSOLE_COLOR_RESET, line_count); }
 
 {NOT}       { print_token("NOT", PRINT_TOKEN_LOGICAL_OP); }
 {AND}       { print_token("AND", PRINT_TOKEN_LOGICAL_OP); }
@@ -182,7 +182,7 @@ FALSE          false
 {COLON}      { print_token("COLON", PRINT_TOKEN_PUNCTUATION); }
 
 . {
-    printf("Caractere desconhecido: \x1b[33m%s\x1b[0m na linha %d.\n", yytext, line_count);
+    printf("Caractere desconhecido: %s%s%s na linha %d.\n", CONSOLE_COLOR_YELLOW, yytext, CONSOLE_COLOR_RESET, line_count);
     invalid_ch_count++;
 }
 
