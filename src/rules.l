@@ -62,7 +62,7 @@ ID             {LETTER}({LETTER}|{DIGIT})*
 NUMBER         {DIGIT}+(\.{DIGIT}+)?([eE][+-]?{DIGIT}+)? 
 COMMENT        #.*\n
 WS             [ \t]
-EOL            [\n]
+EOL            \r?\n
 PLUS           "+"
 MINUS          "-"
 MUL            "*"
@@ -114,7 +114,9 @@ FALSE          false
 
 %%
 {WS}            // Ignore whitespace
-{COMMENT}       // Ignore comments
+{COMMENT} {  // Ignore comments
+    line_count++;
+}
 {EOL} {
     line_count++;
 }
