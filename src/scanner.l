@@ -101,56 +101,54 @@ THEN           then
     line_count++;
 }
 
-{VOID}       |
-{BOOL}       |
-{CHAR}       |
-{SHORT}      |
-{INTEGER}    |
-{FLOAT}      |
-{LONG}       |
-{DOUBLE}     { return (DATATYPE); }
+{VOID}       { return (VOID);    }
+{BOOL}       { return (BOOL);    }
+{CHAR}       { return (CHAR);    }
+{SHORT}      { return (SHORT);   }
+{INTEGER}    { return (INTEGER); }
+{FLOAT}      { return (FLOAT);   }
+{LONG}       { return (LONG);    }
+{DOUBLE}     { return (DOUBLE);  }
 
 {NUMBER}     { return (NUMBER); }
 {DIGIT}+{ID} { printf("Identificador inválido: %s%s%s na linha %d.\n", CONSOLE_COLOR_YELLOW, yytext, CONSOLE_COLOR_RESET, line_count);}
 
-{TRUE}       | 
-{FALSE}      { return (BOOL); }
+{TRUE}       { return (TRUE);  }
+{FALSE}      { return (FALSE); }
+{NOT}        { return (NOT);   }
+{AND}        { return (AND);   }
+{OR}         { return (OR);    }
 
-{NOT}        { return (NOT); }
-
-{AND}        |
-{OR}         { return (LOGICAL_OP); }
-
-{EQUAL}      |
-{NOT_EQUAL}  |
-{LT}         |
-{LTE}        |
-{GT}         |
-{GTE}        { return (RELATION_OP); }
+{EQUAL}      { return (EQUAL);     }
+{NOT_EQUAL}  { return (NOT_EQUAL); }
+{LT}         { return (LT);        }
+{LTE}        { return (LTE);       }
+{GT}         { return (GT);        }
+{GTE}        { return (GTE);       }
 
 \".*\"                 { return (STRING); }
 \'({LETTER}|{DIGIT})\' { return (CHAR);}
 
-{LET}       { return (LET); }
-{DO}        { return (DO); }
-{END}       { return (END); }
-{WHILE}     { return (WHILE); }
-{FOR}       { return (FOR); }
+{LET}       { return (LET);       }
+{DO}        { return (DO);        }
+{END}       { return (END);       }
+{WHILE}     { return (WHILE);     }
+{FOR}       { return (FOR);       }
 {PROCEDURE} { return (PROCEDURE); }
-{UNTIL} { return (UNTIL); }
-{IF} { return (IF); }
-{ELSE} { return (ELSE); }
-{THEN} { return (THEN); }
+{THEN}      { return (THEN);      }
+{UNTIL}     { return (UNTIL);     }
+{IF}        { return (IF);        }
+{ELSE}      { return (ELSE);      }
+{SWITCH}    { return (SWITCH);    }
+{CASE}      { return (CASE);      }
+{RETURN}    { return (RETURN);    }
+{ID}        { return (ID);        }
 
-{ID} { return (ID); }
 
-"++"           { return (PLUSPLUS); }
-"--"           { return (MINUSMINUS); }
-
-{PLUS}         | 
-{MINUS}        | 
-{MUL}          | 
-{DIV}          { return (ARITHMETIC_OP); }
+{PLUS}  { return (PLUS);  } 
+{MINUS} { return (MINUS); }
+{MUL}   { return (MUL);   }
+{DIV}   { return (DIV);   }
 
 {ASSIGN}       { return (ASSIGN); }
 
