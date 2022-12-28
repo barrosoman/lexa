@@ -26,3 +26,11 @@ make clean
 ```Makefile
 make test
 ```
+
+## Instructions without make
+
+```bash
+bison --header=src/parser.h -o src/parser.c src/parser.y
+flex -o src/scanner.c src/scanner.l
+gcc -o lexa src/parser.c src/scanner.c
+```

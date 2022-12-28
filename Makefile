@@ -1,5 +1,5 @@
-LEXIC_CODE	    := src/lexic.c
-LEXIC			:= src/lexic.l
+LEXIC_CODE	    := src/scanner.c
+LEXIC			:= src/scanner.l
 SYNTAX_CODE     := src/parser.c
 SYNTAX_HEADER   := src/parser.h
 SYNTAX			:= src/parser.y
