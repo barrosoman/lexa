@@ -152,10 +152,10 @@ THEN           then
 
 {ASSIGN}       { return (ASSIGN); }
 
-{PLUS_ASSIGN}   | 
-{MINUS_ASSIGN}  | 
-{MUL_ASSIGN}    | 
-{DIV_ASSIGN}    { return (ASSIGN_ARIT_OP); }
+{PLUS_ASSIGN}   { return (ASSIGN_PLUS);  }
+{MINUS_ASSIGN}  { return (ASSIGN_MINUS); }
+{MUL_ASSIGN}    { return (ASSIGN_MUL);   }
+{DIV_ASSIGN}    { return (ASSIGN_DIV);   }
 
 {SEMICOLON}  { return (SEMICOLON); }
 {COMMA}      { return (COMMA); } 

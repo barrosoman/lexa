@@ -36,7 +36,10 @@
  * Assignment operator.
  */
 %token ASSIGN
-%token ASSIGN_ARIT_OP
+%token ASSIGN_PLUS
+%token ASSIGN_MINUS
+%token ASSIGN_MUL
+%token ASSIGN_DIV
 
 /**
  * Arithmetic Operators.
@@ -316,10 +319,10 @@ declaration: LET declaration_after_let
  *
  */
 attribution: ID ASSIGN operands       /* Assignment operator              */ 
-|            ID PLUS ASSIGN operands  /* Addition assignment operator     */
-|            ID MINUS ASSIGN operands /* Subtraction assignmewnt operator */
-|            ID MUL ASSIGN operands   /* Multiply assignment operator     */
-|            ID DIV ASSIGN operands   /* Divide assignment operator       */
+|            ID ASSIGN_PLUS operands  /* Addition assignment operator     */
+|            ID ASSIGN_MINUS operands /* Subtraction assignmewnt operator */
+|            ID ASSIGN_MUL operands   /* Multiply assignment operator     */
+|            ID ASSIGN_DIV operands   /* Divide assignment operator       */
 |            ID PLUS PLUS             /* Increment postfix operator       */
 |            ID MINUS MINUS           /* Decrement postfix operator       */
 |            PLUS PLUS ID             /* Increment prefix operator        */
