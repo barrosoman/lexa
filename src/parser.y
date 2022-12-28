@@ -14,11 +14,16 @@
     }
 
     void print_statement(char *s) {
-        printf("%s%s%s statement was recognized.\n", CONSOLE_COLOR_YELLOW, s, CONSOLE_COLOR_RESET);
+        printf("%s%s%s statement was recognized at %d.\n", CONSOLE_COLOR_YELLOW, s, CONSOLE_COLOR_RESET, yylineno);
     }
 %}
 
 %define parse.error verbose
+
+/**
+  * Comment
+  */                                                                                                             
+%token COMMENT
 
 /**
  * Datatype tokens.
@@ -122,6 +127,7 @@ statements: procedure statements
 |       procedure_call SEMICOLON statements
 |       conditional statements
 |       switch statements
+|       COMMENT statements
 |       %empty
 ;
 

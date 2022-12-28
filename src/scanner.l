@@ -94,8 +94,9 @@ THEN           then
 
 %%
 {WS}            // Ignore whitespace
-{COMMENT} {  // Ignore comments
+{COMMENT} {
     line_count++;
+    return (COMMENT);
 }
 {EOL} {
     line_count++;

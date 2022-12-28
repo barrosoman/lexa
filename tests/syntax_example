@@ -1,0 +1,44 @@
+# Simple declaration statement
+let y: int = 10;
+
+# Long declaration statement
+let a: int, b: float, c: long;
+
+# While statement
+while x > 1 do
+	x = x - 1;
+end while
+
+# For statement
+for let x: int = 20; 10 <= x; x++ do
+	printf("Hello %d\n", x * 10);
+end for
+
+# If statement
+if (x >= 10) then
+	printf("GoodBye %d\n", x);
+end if
+
+# If-else statement
+if (y == 10) then
+	printf("Id: %d\n", y);
+else 
+	printf("Wrong id\n");
+end if
+
+# Switch case statement
+switch x 
+	case 10:
+		let x: int = 10;
+		y = 20;
+	end case
+	case 20:
+		let foo: char = "bar";
+	end case
+end switch
+
+# Procedure statement
+procedure biribi(x: int): void
+	x = 10;
+	y++;
+end procedure
