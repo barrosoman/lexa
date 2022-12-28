@@ -24,69 +24,88 @@
 %token NUMBER ID STRING
 %token PROCEDURE
 %token DATATYPE
-%token LET WHILE FOR DO END UNTIL IF ELSE
+%token LET WHILE FOR DO END UNTIL IF ELSE THEN
 
 %start main
 
 %%
 
-main:          statements
+main:           statements
 ;
 
 
-statements: function statements
-|       declaration SEMICOLON statements
-|       assignment SEMICOLON statements
-|       loop statements
-|       function_call SEMICOLON statements
-|       cond statements
-|       %empty
+statements:     function statements
+|               declaration SEMICOLON statements
+|               assignment SEMICOLON statements
+|               loop statements
+|               function_call SEMICOLON statements
+|               cond statements
+|               %empty
 ;
 
-function_call: ID LPAREN begin_parameters RPAREN
+function_call:  ID LPAREN pars RPAREN
 ;
 
-function: PROCEDURE ID LPAREN begin_parameters RPAREN COLON DATATYPE statements END PROCEDURE
+function:       PROCEDURE ID LPAREN pars RPAREN COLON DATATYPE
+                statements
+                END PROCEDURE
 ;
 
-command_block: statements
-;
-
-operands: STRING | NUMBER | ID | arit_exp | LPAREN operands RPAREN | function_call
+operands:       STRING
+|               NUMBER
+|               ID
+|               arit_exp
+|               function_call
+|               LPAREN operands RPAREN
 ;
 
 // Arithmetic expressions
-arit_exp: operands ARITHMETIC_OP operands
+arit_exp:       operands ARITHMETIC_OP operands
 ;
 
-logic_exp: operands RELATION_OP operands
-| operands
+logic_exp:      operands RELATION_OP operands
+|               LPAREN operands RELATION_OP operands RPAREN
+|               operands
 ;
 
-begin_parameters: ID COLON DATATYPE parameters
-| operands parameters
-| %empty
+pars:           ID COLON DATATYPE pars_aux
+|               operands pars_aux
+|               %empty
 ;
 
-parameters:     COMMA ID COLON DATATYPE parameters
-|       COMMA operands parameters
-|       %empty
+pars_aux:       COMMA ID COLON DATATYPE pars_aux
+|               COMMA operands pars_aux
+|               %empty
 ;
 
-declaration:    LET ID COLON DATATYPE
-|       LET ID COLON DATATYPE ASSIGN operands
+declaration:    LET ID COLON DATATYPE decl_aux
+|               LET ID COLON DATATYPE ASSIGN operands
+;
+decl_aux:       COMMA ID COLON DATATYPE decl_aux
+|               %empty
+
+assignment:     ID ASSIGN operands { printf("Assignment statement recognized.\n"); }
 ;
 
-assignment:     ID ASSIGN operands 
+cond:           IF logic_exp THEN
+                    statements
+                    cond_aux
+                END IF { printf("If statement recognized.\n"); }
+;
+cond_aux:       ELSE statements 
+              | %empty
 ;
 
-cond: IF LPAREN logic_exp RPAREN command_block cond_aux;
-cond_aux: ELSE command_block 
-    | %empty;
-
-loop:           FOR LPAREN declaration SEMICOLON logic_exp SEMICOLON assignment RPAREN DO command_block END FOR
-|       WHILE LPAREN logic_exp RPAREN command_block END WHILE
-|       DO command_block UNTIL LPAREN logic_exp RPAREN
+loop:           FOR declaration SEMICOLON logic_exp SEMICOLON assignment DO
+                    statements
+                END FOR { printf("For loop statement recognized.\n"); }
+              | WHILE logic_exp DO
+                    statements
+                END WHILE { printf("While loop statement recognized.\n"); }
+              | DO
+                    statements
+                UNTIL logic_exp 
+                { printf("Do-Until loop statement recognized.\n"); }
 ;
 %%
 

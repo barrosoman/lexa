@@ -4,7 +4,7 @@
   #include <stdio.h>
   #include <stdlib.h>
   #include <string.h>
-  #include "parser.tab.h"
+  #include "parser.h"
 
   #define OPT_DEBUG_BIT      (0x1)
   #define OPT_NO_VERBOSE_BIT (0x2)
@@ -59,7 +59,6 @@
 
 %option yylineno
 
-LET            let
 DIGIT          [0-9]
 LETTER         [a-zA-Z'_']
 ID             {LETTER}({LETTER}|{DIGIT})*
@@ -87,11 +86,6 @@ GT             ">"
 GTE            ">="
 LPAREN         "("
 RPAREN         ")"
-LBRACKET       "["
-RBRACKET       "]"
-LBRACE         "{"
-RBRACE         "}"
-DOT            \.
 COMMA          ,
 SEMICOLON      ;
 COLON          :
@@ -119,6 +113,8 @@ END	           end
 DO             do
 PROCEDURE      procedure
 UNTIL          until
+LET            let
+THEN           then
 
 
 %%
@@ -167,6 +163,8 @@ UNTIL          until
 {UNTIL} { return (UNTIL); }
 {IF} { return (IF); }
 {ELSE} { return (ELSE); }
+{THEN} { return (THEN); }
+
 {ID} { return (ID); }
 
 
