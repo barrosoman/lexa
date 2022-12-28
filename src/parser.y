@@ -110,10 +110,17 @@ cond:           IF logic_exp THEN
                     statements
                     cond_aux
                 END IF { print_statement("If"); }
+|               SWITCH LPAREN operands RPAREN
+                    cases
+                END SWITCH
 ;
 cond_aux:       ELSE statements { print_statement("Else"); }
-              | %empty
+|               %empty
 ;
+
+cases:          CASE NUMBER COLON statements END CASE cases
+|               %empty
+                ;
 
 // Loops formation
 loop:           FOR declaration SEMICOLON logic_exp SEMICOLON assignment DO
