@@ -63,6 +63,7 @@ LPAREN         "("
 RPAREN         ")"
 LBRACKET       "["
 RBRACKET       "]"
+QUESTION_MARK  "?"
 COMMA          ,
 SEMICOLON      ;
 COLON          :
@@ -159,13 +160,14 @@ THEN           then
 {MUL_ASSIGN}    { return (ASSIGN_MUL);   }
 {DIV_ASSIGN}    { return (ASSIGN_DIV);   }
 
-{SEMICOLON}  { return (SEMICOLON); }
-{COMMA}      { return (COMMA);     } 
-{LPAREN}     { return (LPAREN);    }
-{RPAREN}     { return (RPAREN);    }
-{LBRACKET}   { return (LBRACKET);  }
-{RBRACKET}   { return (RBRACKET);  }
-{COLON}      { return (COLON);     }
+{SEMICOLON}     { return (SEMICOLON);     }
+{COMMA}         { return (COMMA);         } 
+{LPAREN}        { return (LPAREN);        }
+{RPAREN}        { return (RPAREN);        }
+{LBRACKET}      { return (LBRACKET);      }
+{RBRACKET}      { return (RBRACKET);      }
+{QUESTION_MARK} { return (QUESTION_MARK); }
+{COLON}         { return (COLON);         }
 
 . {
     printf("Caractere desconhecido: %s%s%s na linha %d.\n", CONSOLE_COLOR_YELLOW, yytext, CONSOLE_COLOR_RESET, line_count);

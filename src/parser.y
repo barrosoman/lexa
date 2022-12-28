@@ -78,7 +78,7 @@
 %token SEMICOLON
 %token COLON
 %token COMMA
-
+%token QUESTION_MARK
 
 /**
  * Identifier token.
@@ -205,8 +205,17 @@ operands: STRING
 | CHARACTER 
 | arith_expr 
 | logic_expr 
+| ternary
 | LPAREN operands RPAREN
 ;
+
+/**
+ * Parsing the ternary-operator (in BNF-notation).
+ *
+ *  <ternary> ::= <logic-expr> ? <operands> : <operands>
+ *
+ */
+ternary: logic_expr QUESTION_MARK operands COLON operands;
 
 /**
  * Parse an arithmetic expression (in BNF-notation).
@@ -237,7 +246,11 @@ arith_term: arith_term MUL arith_factor
 |           arith_factor
 ;
 arith_factor: ID
+|             PLUS ID       /* Unary plus operator  */
+|             MINUS ID      /* Unary minus operator */
 |             NUMBER
+|             PLUS NUMBER   /* Unary plus operator  */
+|             MINUS NUMBER  /* Unary minus operator */
 |             procedure_call
 |             LPAREN arith_expr RPAREN
 ;
