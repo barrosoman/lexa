@@ -61,6 +61,8 @@ GT             ">"
 GTE            ">="
 LPAREN         "("
 RPAREN         ")"
+LBRACKET       "["
+RBRACKET       "]"
 COMMA          ,
 SEMICOLON      ;
 COLON          :
@@ -158,10 +160,12 @@ THEN           then
 {DIV_ASSIGN}    { return (ASSIGN_DIV);   }
 
 {SEMICOLON}  { return (SEMICOLON); }
-{COMMA}      { return (COMMA); } 
-{LPAREN}     { return (LPAREN); }
-{RPAREN}     { return (RPAREN); }
-{COLON}      { return (COLON); }
+{COMMA}      { return (COMMA);     } 
+{LPAREN}     { return (LPAREN);    }
+{RPAREN}     { return (RPAREN);    }
+{LBRACKET}   { return (LBRACKET);  }
+{RBRACKET}   { return (RBRACKET);  }
+{COLON}      { return (COLON);     }
 
 . {
     printf("Caractere desconhecido: %s%s%s na linha %d.\n", CONSOLE_COLOR_YELLOW, yytext, CONSOLE_COLOR_RESET, line_count);

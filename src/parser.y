@@ -73,6 +73,8 @@
  */
 %token LPAREN 
 %token RPAREN
+%token LBRACKET
+%token RBRACKET
 %token SEMICOLON
 %token COLON
 %token COMMA
@@ -131,7 +133,8 @@ statements: procedure statements
 /**
  * Type syntax-specifier (in BNF-notation).
  *
- *  <type> ::= void | bool | char | short | int | float | long | double;
+ *  <type>       ::= void | bool | char | short | int | float | long | double;
+ *  <type-array> ::= <type> []
  */
 type: VOID
 |     BOOL
@@ -141,6 +144,9 @@ type: VOID
 |     FLOAT
 |     LONG
 |     DOUBLE
+|     type_array
+;
+type_array: type LBRACKET RBRACKET
 ;
 
 /**
@@ -186,12 +192,20 @@ return_statement: RETURN operands
  *  <operands> ::= string         |
  *                 number         | 
  *                 id             | 
+ *                 id [ number ]  |
  *                 <arith-expr>   |
  *                 <logic-expr>   |
  *                 ( <operands> )
  *
  */
-operands: STRING | NUMBER | ID | CHARACTER | arith_expr | logic_expr | LPAREN operands RPAREN
+operands: STRING 
+| NUMBER 
+| ID 
+| ID LBRACKET arith_expr RBRACKET
+| CHARACTER 
+| arith_expr 
+| logic_expr 
+| LPAREN operands RPAREN
 ;
 
 /**
@@ -409,9 +423,9 @@ while_loop: WHILE logic_expr DO statements END WHILE
 /**
  * Parse a do-until-loop (in BNF-notation).
  *
- *  <do-until-loop> ::= do { <statements> } until <logic-expr>
+ *  <do-until-loop> ::= do { <statements> } until <logic-expr> ;
  */
-do_until_loop: DO statements UNTIL logic_expr
+do_until_loop: DO statements UNTIL logic_expr SEMICOLON
                { print_statement("Do-Until Loop"); }
 ;
 
