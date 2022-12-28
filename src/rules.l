@@ -119,6 +119,7 @@ END	           end
 DO             do
 PROCEDURE      procedure
 UNTIL          until
+THEN           then
 
 
 %%
@@ -130,50 +131,54 @@ UNTIL          until
     line_count++;
 }
 
-{VOID}       |
-{BOOL}       |
-{CHAR}       |
-{SHORT}      |
-{INTEGER}    |
-{FLOAT}      |
-{LONG}       |
-{DOUBLE}     { return (DATATYPE); }
+{VOID}       { return (VOID);    }
+{BOOL}       { return (BOOL);    }
+{CHAR}       { return (CHAR);    }
+{SHORT}      { return (SHORT);   }
+{INTEGER}    { return (INTEGER); }
+{FLOAT}      { return (FLOAT);   }
+{LONG}       { return (LONG);    }
+{DOUBLE}     { return (DOUBLE);  }
 
 {NUMBER}     { return (NUMBER); }
 {DIGIT}+{ID} { printf("Identificador inválido: %s%s%s na linha %d.\n", CONSOLE_COLOR_YELLOW, yytext, CONSOLE_COLOR_RESET, line_count); }
 
-{TRUE}       | 
-{FALSE}      | 
-{NOT}        |
-{AND}        |
-{OR}         { return (LOGICAL_OP); }
+{TRUE}       { return (TRUE);  }
+{FALSE}      { return (FALSE); }
+{NOT}        { return (NOT);   }
+{AND}        { return (AND);   }
+{OR}         { return (OR);    }
 
-{EQUAL}      |
-{NOT_EQUAL}  |
-{LT}         |
-{LTE}        |
-{GT}         |
-{GTE}        { return (RELATION_OP); }
+{EQUAL}      { return (EQUAL);     }
+{NOT_EQUAL}  { return (NOT_EQUAL); }
+{LT}         { return (LT);        }
+{LTE}        { return (LTE);       }
+{GT}         { return (GT);        }
+{GTE}        { return (GTE);       }
 
 \".*\"                 { print_token("LITERAL_STRING", PRINT_TOKEN_LITERAL_STRING); return (STRING); }
 \'({LETTER}|{DIGIT})\' { print_token("LITERAL_CHARACTER", PRINT_TOKEN_LITERAL_CHARACTER); }
 
-{LET}       { return (LET); }
-{DO}        { return (DO); }
-{END}       { return (END); }
-{WHILE}     { return (WHILE); }
-{FOR}       { return (FOR); }
+{LET}       { return (LET);       }
+{DO}        { return (DO);        }
+{END}       { return (END);       }
+{WHILE}     { return (WHILE);     }
+{FOR}       { return (FOR);       }
 {PROCEDURE} { return (PROCEDURE); }
-{UNTIL} { return (UNTIL); }
-{IF} { return (IF); }
-{ELSE} { return (ELSE); }
-{ID} { return (ID); }
+{THEN}      { return (THEN);      }
+{UNTIL}     { return (UNTIL);     }
+{IF}        { return (IF);        }
+{ELSE}      { return (ELSE);      }
+{SWITCH}    { return (SWITCH);    }
+{CASE}      { return (CASE);      }
+{RETURN}    { return (RETURN);    }
+{ID}        { return (ID);        }
 
 
-{PLUS}         | 
-{MINUS}        | 
-{MUL}          | 
-{DIV}          { return (ARITHMETIC_OP); }
+{PLUS}  { return (PLUS);  } 
+{MINUS} { return (MINUS); }
+{MUL}   { return (MUL);   }
+{DIV}   { return (DIV);   }
 
 {ASSIGN}       { return (ASSIGN); }
 

@@ -15,16 +15,92 @@
     }
 
 
-        %}
+%}
 
 %define parse.error verbose
 
-%token LPAREN RPAREN SEMICOLON COLON COMMA
-%token ARITHMETIC_OP LOGICAL_OP RELATION_OP ASSIGN
-%token NUMBER ID STRING
+/**
+ * Datatype tokens.
+ */
+%token VOID
+%token BOOL
+%token CHAR
+%token SHORT
+%token INTEGER
+%token FLOAT
+%token LONG
+%token DOUBLE
+
+/**
+ * Assignment operator.
+ */
+%token ASSIGN
+
+/**
+ * Arithmetic Operators.
+ */
+%token PLUS
+%token MINUS
+%token MUL
+%token DIV
+
+/**
+ * Comparison Operators.
+ */
+%token EQUAL
+%token NOT_EQUAL
+%token LT
+%token LTE
+%token GT
+%token GTE
+
+/**
+ * Logical Operators & Logical Literals.
+ */
+%token NOT
+%token AND
+%token OR
+%token TRUE
+%token FALSE
+
+/**
+ * Punctuation tokens.
+ */
+%token LPAREN 
+%token RPAREN
+%token SEMICOLON
+%token COLON
+%token COMMA
+
+
+/**
+ * Identifier token.
+ */
+%token ID
+
+/**
+ * Numeric & string literals.
+ */
+%token NUMBER
+%token STRING
+
+
+/**
+ * Keywords.
+ */
+%token LET
 %token PROCEDURE
-%token DATATYPE
-%token LET WHILE FOR DO END UNTIL IF ELSE
+%token WHILE
+%token FOR
+%token DO
+%token UNTIL
+%token IF
+%token THEN
+%token ELSE
+%token SWITCH
+%token CASE
+%token RETURN
+%token END
 
 %start main
 
@@ -33,61 +109,303 @@
 main:          statements
 ;
 
-
-statements: function statements
+statements: procedure statements
 |       declaration SEMICOLON statements
-|       assignment SEMICOLON statements
+|       attribution SEMICOLON statements
+|       decl_attrib SEMICOLON statements
+|       return_statement SEMICOLON statements
 |       loop statements
-|       function_call SEMICOLON statements
-|       cond statements
+|       procedure_call SEMICOLON statements
+|       conditional statements
+|       switch statements
 |       %empty
 ;
 
-function_call: ID LPAREN begin_parameters RPAREN
+/**
+ * Type syntax-specifier (in BNF-notation).
+ *
+ *  <type> ::= void | bool | char | short | int | float | long | double;
+ */
+type: VOID
+|     BOOL
+|     CHAR
+|     SHORT
+|     INTEGER
+|     FLOAT
+|     LONG
+|     DOUBLE
 ;
 
-function: PROCEDURE ID LPAREN begin_parameters RPAREN COLON DATATYPE statements END PROCEDURE
+/**
+ * Parsing a procedure (in BNF-notation).
+ *
+ *  <procedure> ::= procedure id ( <procedure-params> ): <type> { <statements } end procedure
+ *  <procedure-params> ::= id: type { , id: type }
+ *
+ */
+procedure: PROCEDURE ID LPAREN procedure_params RPAREN COLON type statements END PROCEDURE
+;
+procedure_params: ID COLON type
+|                 ID COLON type COMMA procedure_params
 ;
 
-command_block: statements
+/**
+ * Parsing a procedure-call (in BNF-notation).
+ *
+ *  <procedure-call> ::= id ( <procedure-args> )
+ *  <procedure-args> ::= <operands> { , <operands> }
+ *
+ */
+procedure_call: ID LPAREN procedure_args RPAREN
+;
+procedure_args: operands
+|               operands COMMA procedure_args
 ;
 
-operands: STRING | NUMBER | ID | arit_exp | LPAREN operands RPAREN | function_call
+/**
+ * Parsing a return statement (in BNF-notation).
+ *
+ *  <return-statement> ::= return <operands>
+ *
+ */
+return_statement: RETURN operands
 ;
 
-// Arithmetic expressions
-arit_exp: operands ARITHMETIC_OP operands
+/**
+ * Parsing operands (in BNF-notation).
+ * 
+ *  <operands> ::= string         |
+ *                 number         | 
+ *                 id             | 
+ *                 <arith-expr>   |
+ *                 <logic-expr>   |
+ *                 ( <operands> )
+ *
+ */
+operands: STRING | NUMBER | ID | arith_expr | logic_expr | LPAREN operands RPAREN
 ;
 
-logic_exp: operands RELATION_OP operands
-| operands
+/**
+ * Parse an arithmetic expression (in BNF-notation).
+ *
+ * The productions provided for this arithmetic expressions
+ * already provides higher precedence for multiply and
+ * divide operations with relation to the addition and
+ * subtraction ones.
+ *
+ *  <arith-expr>   ::= <arith-expr> + <arith-term> |
+ *                     <arith-expr> - <arith-term> |
+ *                     <arith-term>
+ *  <arith-term>   ::= <arith-term> * <arith-factor> |
+ *                     <arith-term> / <arith-factor>
+ *                     <arith-factor>
+ *  <arith-factor> ::= id
+ *                     number            |
+ *                     <function-call>   |
+ *                     ( <arith-expr> )
+ *
+ */
+arith_expr: arith_expr PLUS arith_term
+|           arith_expr MINUS arith_term
+|           arith_term
+;
+arith_term: arith_term MUL arith_factor
+|           arith_term DIV arith_factor
+|           arith_factor
+;
+arith_factor: ID
+|             NUMBER
+|             procedure_call
+|             LPAREN arith_expr RPAREN
 ;
 
-begin_parameters: ID COLON DATATYPE parameters
-| operands parameters
-| %empty
+/**
+ * Parse a logical expression (in BNF-notation).
+ *
+ * The productions provided for this logical expressions
+ * already provides higher precedence for NOT, followed
+ * by AND and followed by OR.
+ *
+ *  <logic-expr>   ::= <logic-expr> or <logic-term> |
+ *                     <logic-term>
+ *  <logic-term>   ::= <logic-term> and <logic-factor> |
+ *                     <logic-factor>
+ *  <logic-factor> ::= not <logic-factor> |
+ *                     ( <logic-expr> )   |
+ *                     true               |
+ *                     false
+ */
+logic_expr: logic_expr OR logic_term
+|           logic_term
+;
+logic_term: logic_term AND logic_factor
+|           logic_factor
+;
+logic_factor: NOT logic_factor
+|             LPAREN logic_expr RPAREN
+|             TRUE
+|             FALSE
+|             comp_expr
 ;
 
-parameters:     COMMA ID COLON DATATYPE parameters
-|       COMMA operands parameters
-|       %empty
+/**
+ * Parse a comparison expression (in BNF-notation).
+ *
+ * The produces provided for this comparison expressions
+ * alreayd provides higher precedence for '>', '<=', '>'
+ * and '>=' operators than '==', '!=' ones.
+ *
+ *  <comp-expr>   ::= <comp-expr> == <comp-term> |
+ *                    <comp-expr> != <comp-term> |
+ *                    <comp-term>
+ *  <comp-term>   ::= <comp-term> '<'  <comp-factor> |
+ *                    <comp-term> '<=' <comp-factor> |
+ *                    <comp-term> '>'  <comp-factor> |
+ *                    <comp-term> '>=' <comp-factor> |
+ *                    <comp-factor>
+ *  <comp-factor> ::= <arith-expr>
+ *
+ */
+comp_expr: comp_expr EQUAL comp_term
+|          comp_expr NOT_EQUAL comp_term
+|          comp_term
+;
+comp_term: comp_term LT comp_factor
+|          comp_term LTE comp_factor
+|          comp_term GT comp_factor
+|          comp_term GTE comp_factor
+|          comp_factor
+;
+comp_factor: arith_expr
 ;
 
-declaration:    LET ID COLON DATATYPE
-|       LET ID COLON DATATYPE ASSIGN operands
+
+/**
+ * Parse a declaration (in BNF-notation).
+ *
+ *  <declaration-after-let> ::= id: <type> { , <declaration-after-let> }
+ *  <declaration>           ::= let <declaration-after-let>
+ *
+ */
+declaration_after_let: ID COLON type
+|                      ID COLON type COMMA declaration_after_let
+;
+declaration: LET declaration_after_let
 ;
 
-assignment:     ID ASSIGN operands 
+/**
+ * Parse an attribution (in BNF-notation).
+ *
+ *  <attribution> ::= id = <operands>  |
+ *                    id += <operands> |
+ *                    id -= <operands> |
+ *                    id *= <operands> |
+ *                    id /= <operands> |
+ *                    id++             |
+ *                    id--             |
+ *                    ++id             |
+ *                    --id
+ *
+ */
+attribution: ID ASSIGN operands       /* Assignment operator              */ 
+|            ID PLUS ASSIGN operands  /* Addition assignment operator     */
+|            ID MINUS ASSIGN operands /* Subtraction assignmewnt operator */
+|            ID MUL ASSIGN operands   /* Multiply assignment operator     */
+|            ID DIV ASSIGN operands   /* Divide assignment operator       */
+|            ID PLUS PLUS             /* Increment postfix operator       */
+|            ID MINUS MINUS           /* Decrement postfix operator       */
+|            PLUS PLUS ID             /* Increment prefix operator        */
+|            MINUS MINUS ID           /* Decrement prefix operator        */
 ;
 
-cond: IF LPAREN logic_exp RPAREN command_block cond_aux;
-cond_aux: ELSE command_block 
-    | %empty;
-
-loop:           FOR LPAREN declaration SEMICOLON logic_exp SEMICOLON assignment RPAREN DO command_block END FOR
-|       WHILE LPAREN logic_exp RPAREN command_block END WHILE
-|       DO command_block UNTIL LPAREN logic_exp RPAREN
+/**
+ * Parse a declaration with attribution (in BNF-notation).
+ *
+ *   <decl-attrib-post-let> ::= id: <type> = <operands> { , <decl-attrib-post-let> }
+ *   <decl-attrib>          ::= let <decl-attrib-post-let>
+ *
+ */
+decl_attrib_post_let: ID COLON type ASSIGN operands
+|                     ID COLON type ASSIGN operands COMMA decl_attrib_post_let
 ;
+decl_attrib: LET decl_attrib_post_let
+;
+
+/**
+ * Parse a if-then-else condition (in BNF-notation).
+ *
+ *  <conditional> ::= if <logic-expr> then { <statements> } end if |
+ *                ::= if <logic-expr> then { <statements> } else { <statements >} end if
+ *
+ */
+conditional: IF logic_expr THEN statements END IF
+|            IF logic_expr THEN statements ELSE statements END IF
+;
+
+/**
+ * Parse a switch-case selection (in BNF-notation).
+ *
+ *  <case>   ::= case number: { <statements> } end case
+ *  <cases>  ::= <case> { <case> }
+ *  <switch> ::= switch <arith-expr> <cases> end switch
+ *
+ */
+case: CASE NUMBER COLON statements END CASE
+;
+cases: case
+|      case cases
+;
+switch: SWITCH arith_expr cases END SWITCH
+;
+
+/**
+ * Parse a for-loop (in BNF-notation).
+ *
+ *  <for-loop>           ::= for [ <for-loop-init> ]; [ <for-loop-condition> ]; [ <for-loop_update> ] DO { <statements> } end for
+ *  <for-loop-init>      ::= <decl-attrib>
+ *  <for-loop-condition> ::= <logic-expr>
+ *  <for-loop-update>    ::= <attribution>
+ */
+for_loop: FOR for_loop_init SEMICOLON for_loop_condition SEMICOLON for_loop_update DO statements END FOR
+;
+for_loop_init: decl_attrib
+|              %empty
+;
+for_loop_condition: logic_expr
+|                   %empty
+;
+for_loop_update: attribution
+|                %empty
+;
+
+/**
+ * Parse a while-loop (in BNF-notation).
+ *
+ *  <while-loop> ::= while <logic-expr> do { <statements> } end while
+ *
+ */
+while_loop: WHILE logic_expr DO statements END WHILE
+;
+
+/**
+ * Parse a do-until-loop (in BNF-notation).
+ *
+ *  <do-until-loop> ::= do { <statements> } until <logic-expr>
+ */
+do_until_loop: DO statements UNTIL logic_expr
+
+/**
+ * Loop-syntax.
+ *
+ *  <loop> ::= <for-loop>      |
+ *             <while-loop>    |
+ *             <do-until-loop>
+ */
+loop: for_loop
+| while_loop
+| do_until_loop
+;
+
 %%
 
 int main(int argc, char **argv) {
