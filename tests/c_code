@@ -1,28 +1,25 @@
-#include <stdio.h>
-#include <stdlib.h>
+procedure array_create(size: int): void
+	let array: int;
 
-int *array_create(int size)
-{
-	int *array;
+	array = malloc(sizeof(4) * size);
 
-	array = (int *)malloc(sizeof(int) * size);
+	for (let i: int = 0; i < size; i = i + 1) do
+		array = 0;
+    end for
 
-	for (int i = 0; i < size; i++)
-		array[i] = 0;
+	return(array);
+end procedure
 
-	return array;
-}
+procedure array_print(array: int, size: int): void
+	for (let i: int = 0; i < size; i = i + 1) do
+		printf("%d ", array);
+    end for
 
-int array_print(int *array, int size)
-{
-	for (int i = 0; i < size; i++)
-		printf("%d ", array[i]);
 	printf("\n");
-}
+end procedure
 
-int main(void)
-{
-	int *array = array_create(100);
+procedure main(): void
+	let array: int = array_create(100);
 	array_print(array, 100);
-	return 0;
-}
+	return(0);
+end procedure

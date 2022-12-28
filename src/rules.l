@@ -4,6 +4,7 @@
   #include <stdio.h>
   #include <stdlib.h>
   #include <string.h>
+  #include "parser.tab.h"
 
   #define OPT_DEBUG_BIT      (0x1)
   #define OPT_NO_VERBOSE_BIT (0x2)
@@ -56,6 +57,9 @@
   void print_token(const char *token_name, unsigned int printing_type);
 %}
 
+%option yylineno
+
+LET            let
 DIGIT          [0-9]
 LETTER         [a-zA-Z'_']
 ID             {LETTER}({LETTER}|{DIGIT})*
@@ -67,7 +71,7 @@ PLUS           "+"
 MINUS          "-"
 MUL            "*"
 DIV            "/"
-ASSIGN         ":="
+ASSIGN         "="
 PLUS_ASSIGN    "+="
 MINUS_ASSIGN   "-="
 MUL_ASSIGN     "*="
@@ -75,7 +79,7 @@ DIV_ASSIGN     "/="
 NOT            not
 AND            and
 OR             or
-EQUAL          "="
+EQUAL          "=="
 NOT_EQUAL      "!="
 LT             "<"
 LTE            "<="
@@ -111,6 +115,11 @@ BREAK          break
 CONTINUE       continue
 TRUE           true
 FALSE          false
+END	           end
+DO             do
+PROCEDURE      procedure
+UNTIL          until
+
 
 %%
 {WS}            // Ignore whitespace
@@ -121,67 +130,58 @@ FALSE          false
     line_count++;
 }
 
-{VOID}    |
-{BOOL}    |
-{CHAR}    |
-{SHORT}   |
-{INTEGER} |
-{FLOAT}   |
-{LONG}    |
-{DOUBLE}  { print_token(yytext, PRINT_TOKEN_KEYWORD_DATATYPE); }
+{VOID}       |
+{BOOL}       |
+{CHAR}       |
+{SHORT}      |
+{INTEGER}    |
+{FLOAT}      |
+{LONG}       |
+{DOUBLE}     { return (DATATYPE); }
 
-{RETURN}   | 
-{CONST}    |
-{IF}       |
-{ELSE}     |
-{FOR}      |
-{WHILE}    | 
-{SWITCH}   |  
-{CASE}     |
-{BREAK}    |
-{CONTINUE} |
-{TRUE}     |
-{FALSE}    { print_token(yytext, PRINT_TOKEN_KEYWORD); }
-
-{NUMBER}     { print_token("NUMBER", PRINT_TOKEN_NUMBER); }
+{NUMBER}     { return (NUMBER); }
 {DIGIT}+{ID} { printf("Identificador inválido: %s%s%s na linha %d.\n", CONSOLE_COLOR_YELLOW, yytext, CONSOLE_COLOR_RESET, line_count); }
 
-{NOT}       { print_token("NOT", PRINT_TOKEN_LOGICAL_OP); }
-{AND}       { print_token("AND", PRINT_TOKEN_LOGICAL_OP); }
-{OR}        { print_token("OR", PRINT_TOKEN_LOGICAL_OP); }
-{EQUAL}     { print_token("EQUAL", PRINT_TOKEN_LOGICAL_OP); } 
-{NOT_EQUAL} { print_token("NOT_EQUAL", PRINT_TOKEN_LOGICAL_OP); }
-{LT}        { print_token("LT", PRINT_TOKEN_LOGICAL_OP); }
-{LTE}       { print_token("LTE", PRINT_TOKEN_LOGICAL_OP); }
-{GT}        { print_token("GT", PRINT_TOKEN_LOGICAL_OP); }
-{GTE}       { print_token("GTE", PRINT_TOKEN_LOGICAL_OP); }
+{TRUE}       | 
+{FALSE}      | 
+{NOT}        |
+{AND}        |
+{OR}         { return (LOGICAL_OP); }
 
-\".*\"                 { print_token("LITERAL_STRING", PRINT_TOKEN_LITERAL_STRING); }
+{EQUAL}      |
+{NOT_EQUAL}  |
+{LT}         |
+{LTE}        |
+{GT}         |
+{GTE}        { return (RELATION_OP); }
+
+\".*\"                 { print_token("LITERAL_STRING", PRINT_TOKEN_LITERAL_STRING); return (STRING); }
 \'({LETTER}|{DIGIT})\' { print_token("LITERAL_CHARACTER", PRINT_TOKEN_LITERAL_CHARACTER); }
 
-{ID} { print_token("id", PRINT_TOKEN_IDENTIFIER); }
+{LET}       { return (LET); }
+{DO}        { return (DO); }
+{END}       { return (END); }
+{WHILE}     { return (WHILE); }
+{FOR}       { return (FOR); }
+{PROCEDURE} { return (PROCEDURE); }
+{UNTIL} { return (UNTIL); }
+{IF} { return (IF); }
+{ELSE} { return (ELSE); }
+{ID} { return (ID); }
 
-{ASSIGN}      { print_token("ASSIGN", PRINT_TOKEN_ASSIGN_OP); }
 
-{PLUS}         { print_token("PLUS", PRINT_TOKEN_ARITHMETIC_OP); } 
-{MINUS}        { print_token("MINUS", PRINT_TOKEN_ARITHMETIC_OP); }
-{MUL}          { print_token("MUL", PRINT_TOKEN_ARITHMETIC_OP); }
-{DIV}          { print_token("DIV", PRINT_TOKEN_ARITHMETIC_OP); }
-{PLUS_ASSIGN}  { print_token("PLUS_ASSIGN", PRINT_TOKEN_ARITHMETIC_OP); }
-{MINUS_ASSIGN} { print_token("MINUS_ASSIGN", PRINT_TOKEN_ARITHMETIC_OP); }
-{MUL_ASSIGN}   { print_token("MUL_ASSIGN", PRINT_TOKEN_ARITHMETIC_OP); }
-{DIV_ASSIGN}   { print_token("DIV_ASSIGN", PRINT_TOKEN_ARITHMETIC_OP); }
+{PLUS}         | 
+{MINUS}        | 
+{MUL}          | 
+{DIV}          { return (ARITHMETIC_OP); }
 
-{SEMICOLON}  { print_token("SEMICOLON", PRINT_TOKEN_PUNCTUATION); }
-{DOT}        { print_token("DOT", PRINT_TOKEN_PUNCTUATION); }
-{COMMA}      { print_token("COMMA",  PRINT_TOKEN_PUNCTUATION); }
-{LBRACE}     { print_token("LBRACE", PRINT_TOKEN_PUNCTUATION); }
-{RBRACE}     { print_token("RBRACE", PRINT_TOKEN_PUNCTUATION); }
-{LPAREN}     { print_token("LPAREN", PRINT_TOKEN_PUNCTUATION); }
-{RPAREN}     { print_token("RPAREN", PRINT_TOKEN_PUNCTUATION); }
-{LBRACKET}   { print_token("LBRACKET", PRINT_TOKEN_PUNCTUATION); }
-{RBRACKET}   { print_token("RBRACKET", PRINT_TOKEN_PUNCTUATION); }
-{COLON}      { print_token("COLON", PRINT_TOKEN_PUNCTUATION); }
+{ASSIGN}       { return (ASSIGN); }
+
+{SEMICOLON}  { return (SEMICOLON); }
+{COMMA}      { return (COMMA); } 
+{LPAREN}     { return (LPAREN); }
+{RPAREN}     { return (RPAREN); }
+{COLON}      { return (COLON); }
 
 . {
     printf("Caractere desconhecido: %s%s%s na linha %d.\n", CONSOLE_COLOR_YELLOW, yytext, CONSOLE_COLOR_RESET, line_count);
@@ -234,30 +234,3 @@ void print_token(const char *token_name, unsigned int printing_type) {
    }
 }
 
-int main(int argc, char **argv) {
-    --argc, ++argv;
-
-    if (argc > 0 && argv[0][0] != '-') {
-        yyin = fopen(argv[0], "r");
-
-        --argc, ++argv;
-    } else {
-        yyin = stdin;
-    }
-  
-    while (argc > 0) {
-      argc--;
-      if (strcmp(argv[argc], "--debug") == 0)
-        options |= OPT_DEBUG_BIT;
-      else if (strcmp(argv[argc], "--no-verbose") == 0)
-        options |= OPT_NO_VERBOSE_BIT;
-    }
-
-    yylex();
-
-    if (options & OPT_DEBUG_BIT) {
-      printf("\n[DEBUG]\n");
-      printf("Line Count: %d.\n", line_count);
-      printf("Invalid Character Count: %d.\n", invalid_ch_count);
-    }
-}
