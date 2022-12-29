@@ -14,7 +14,7 @@
     }
 %}
 
-%define parse.error verbose
+%expect 2
 
 /**
  * Datatype tokens.
