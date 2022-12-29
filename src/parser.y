@@ -141,7 +141,7 @@ statements: procedure statements
 /**
  * Type syntax-specifier (in BNF-notation).
  *
- *  <type>       ::= void | bool | char | short | int | float | long | double;
+ *  <type>       ::= void | bool | char | short | int | float | long | double | <type-array>;
  *  <type-array> ::= <type> []
  */
 type: VOID
@@ -183,6 +183,7 @@ procedure_call: ID LPAREN procedure_args RPAREN
 ;
 procedure_args: expr
 |               expr COMMA procedure_args
+|               %empty
 ;
 
 /**
@@ -197,16 +198,16 @@ return_statement: RETURN expr
 /**
  * Parsing an expression (in BNF-notation).
  * 
- *  <expr> ::= string             |
- *                 id [ number ]  |
- *                 <arith-expr>   |
- *                 <logic-expr>   |
- *                 ( <expr> )
+ *  <expr> ::= string         |
+ *             character      |
+ *             <logical-expr> |
+ *             <ternary>      |
+ *             ( <expr> )
  *
  */
 expr: STRING 
 | CHARACTER 
-| logic_expr 
+| logical_expr 
 | ternary
 | LPAREN expr RPAREN
 ;
@@ -214,10 +215,10 @@ expr: STRING
 /**
  * Parsing the ternary-operator (in BNF-notation).
  *
- *  <ternary> ::= <logic-expr> ? <expr> : <expr>
+ *  <ternary> ::= <logical-expr> ? <expr> : <expr>
  *
  */
-ternary: logic_expr QUESTION_MARK expr COLON expr;
+ternary: logical_expr QUESTION_MARK expr COLON expr;
 
 /**
  * Parse an arithmetic expression (in BNF-notation).
@@ -233,9 +234,14 @@ ternary: logic_expr QUESTION_MARK expr COLON expr;
  *  <arith-term>   ::= <arith-term> * <arith-factor> |
  *                     <arith-term> / <arith-factor>
  *                     <arith-factor>
- *  <arith-factor> ::= id
- *                     number            |
- *                     <function-call>   |
+ *  <arith-factor> ::= id                  |
+ *                     id [ <arith-expr> ] |
+ *                     + id                |
+ *                     - id                |
+ *                     number              |
+ *                     + number            |
+ *                     - number            |
+ *                     <procedure-call>    |
  *                     ( <arith-expr> )
  *
  */
@@ -259,29 +265,30 @@ arith_factor: ID
 ;
 
 /**
- * Parse a logical expression (in BNF-notation).
+ * Parse a logicalal expression (in BNF-notation).
  *
- * The productions provided for this logical expressions
+ * The productions provided for this logicalal expressions
  * already provides higher precedence for NOT, followed
  * by AND and followed by OR.
  *
- *  <logic-expr>   ::= <logic-expr> or <logic-term> |
- *                     <logic-term>
- *  <logic-term>   ::= <logic-term> and <logic-factor> |
- *                     <logic-factor>
- *  <logic-factor> ::= not <logic-factor> |
- *                     ( <logic-expr> )   |
- *                     true               |
- *                     false
+ *  <logical-expr>   ::= <logical-expr> or <logical-term> |
+ *                       <logical-term>
+ *  <logical-term>   ::= <logical-term> and <logical-factor> |
+ *                       <logical-factor>
+ *  <logical-factor> ::= not <logical-factor> |
+ *                       ( <logical-expr> )   |
+ *                       true                 | 
+ *                       false                |
+ *                       <comp-expr>
  */
-logic_expr: logic_expr OR logic_term
-|           logic_term
+logical_expr: logical_expr OR logical_term
+|           logical_term
 ;
-logic_term: logic_term AND logic_factor
-|           logic_factor
+logical_term: logical_term AND logical_factor
+|           logical_factor
 ;
-logic_factor: NOT logic_factor
-|             LPAREN logic_expr RPAREN
+logical_factor: NOT logical_factor
+|             LPAREN logical_expr RPAREN
 |             TRUE
 |             FALSE
 |             comp_expr
@@ -342,9 +349,9 @@ declaration: LET declaration_after_let
  *                    id -= <expr> |
  *                    id *= <expr> |
  *                    id /= <expr> |
- *                    id++             |
- *                    id--             |
- *                    ++id             |
+ *                    id++         |
+ *                    id--         |
+ *                    ++id         |
  *                    --id
  *
  */
@@ -353,10 +360,10 @@ attribution: ID ASSIGN expr       /* Assignment operator              */
 |            ID ASSIGN_MINUS expr /* Subtraction assignmewnt operator */
 |            ID ASSIGN_MUL expr   /* Multiply assignment operator     */
 |            ID ASSIGN_DIV expr   /* Divide assignment operator       */
-|            ID PLUS PLUS             /* Increment postfix operator       */
-|            ID MINUS MINUS           /* Decrement postfix operator       */
-|            PLUS PLUS ID             /* Increment prefix operator        */
-|            MINUS MINUS ID           /* Decrement prefix operator        */
+|            ID PLUS PLUS         /* Increment postfix operator       */
+|            ID MINUS MINUS       /* Decrement postfix operator       */
+|            PLUS PLUS ID         /* Increment prefix operator        */
+|            MINUS MINUS ID       /* Decrement prefix operator        */
 ;
 
 /**
@@ -377,13 +384,13 @@ decl_attrib: LET decl_attrib_post_let
 /**
  * Parse a if-then-else condition (in BNF-notation).
  *
- *  <conditional> ::= if <logic-expr> then { <statements> } end if |
- *                ::= if <logic-expr> then { <statements> } else { <statements >} end if
+ *  <conditional> ::= if <logical-expr> then { <statements> } end if |
+ *                ::= if <logical-expr> then { <statements> } else { <statements >} end if
  *
  */
-conditional: IF logic_expr THEN statements END IF
+conditional: IF logical_expr THEN statements END IF
                { print_statement("If"); }
-|            IF logic_expr THEN statements ELSE statements END IF
+|            IF logical_expr THEN statements ELSE statements END IF
                { print_statement("If-Else"); }
 ;
 
@@ -410,7 +417,7 @@ switch: SWITCH arith_expr cases END SWITCH
  *
  *  <for-loop>           ::= for [ <for-loop-init> ]; [ <for-loop-condition> ]; [ <for-loop_update> ] DO { <statements> } end for
  *  <for-loop-init>      ::= <decl-attrib>
- *  <for-loop-condition> ::= <logic-expr>
+ *  <for-loop-condition> ::= <logical-expr>
  *  <for-loop-update>    ::= <attribution>
  */
 for_loop: FOR for_loop_init SEMICOLON for_loop_condition SEMICOLON for_loop_update DO statements END FOR
@@ -419,7 +426,7 @@ for_loop: FOR for_loop_init SEMICOLON for_loop_condition SEMICOLON for_loop_upda
 for_loop_init: decl_attrib
 |              %empty
 ;
-for_loop_condition: logic_expr
+for_loop_condition: logical_expr
 |                   %empty
 ;
 for_loop_update: attribution
@@ -429,19 +436,19 @@ for_loop_update: attribution
 /**
  * Parse a while-loop (in BNF-notation).
  *
- *  <while-loop> ::= while <logic-expr> do { <statements> } end while
+ *  <while-loop> ::= while <logical-expr> do { <statements> } end while
  *
  */
-while_loop: WHILE logic_expr DO statements END WHILE
+while_loop: WHILE logical_expr DO statements END WHILE
                { print_statement("While-Loop"); }
 ;
 
 /**
  * Parse a do-until-loop (in BNF-notation).
  *
- *  <do-until-loop> ::= do { <statements> } until <logic-expr> ;
+ *  <do-until-loop> ::= do { <statements> } until <logical-expr> ;
  */
-do_until_loop: DO statements UNTIL logic_expr SEMICOLON
+do_until_loop: DO statements UNTIL logical_expr SEMICOLON
                { print_statement("Do-Until-Loop"); }
 ;
 
