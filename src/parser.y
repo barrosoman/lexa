@@ -163,49 +163,49 @@ procedure_params: ID COLON type
  * Parsing a procedure-call (in BNF-notation).
  *
  *  <procedure-call> ::= id ( <procedure-args> )
- *  <procedure-args> ::= <operands> { , <operands> }
+ *  <procedure-args> ::= <expr> { , <expr> }
  *
  */
 procedure_call: ID LPAREN procedure_args RPAREN
                { print_statement("Procedure Call"); }
 ;
-procedure_args: operands
-|               operands COMMA procedure_args
+procedure_args: expr
+|               expr COMMA procedure_args
 ;
 
 /**
  * Parsing a return statement (in BNF-notation).
  *
- *  <return-statement> ::= return <operands>
+ *  <return-statement> ::= return <expr>
  *
  */
-return_statement: RETURN operands
+return_statement: RETURN expr
 ;
 
 /**
- * Parsing operands (in BNF-notation).
+ * Parsing an expression (in BNF-notation).
  * 
- *  <operands> ::= string         |
+ *  <expr> ::= string             |
  *                 id [ number ]  |
  *                 <arith-expr>   |
  *                 <logic-expr>   |
- *                 ( <operands> )
+ *                 ( <expr> )
  *
  */
-operands: STRING 
+expr: STRING 
 | CHARACTER 
 | logic_expr 
 | ternary
-| LPAREN operands RPAREN
+| LPAREN expr RPAREN
 ;
 
 /**
  * Parsing the ternary-operator (in BNF-notation).
  *
- *  <ternary> ::= <logic-expr> ? <operands> : <operands>
+ *  <ternary> ::= <logic-expr> ? <expr> : <expr>
  *
  */
-ternary: logic_expr QUESTION_MARK operands COLON operands;
+ternary: logic_expr QUESTION_MARK expr COLON expr;
 
 /**
  * Parse an arithmetic expression (in BNF-notation).
@@ -325,22 +325,22 @@ declaration: LET declaration_after_let
 /**
  * Parse an attribution (in BNF-notation).
  *
- *  <attribution> ::= id = <operands>  |
- *                    id += <operands> |
- *                    id -= <operands> |
- *                    id *= <operands> |
- *                    id /= <operands> |
+ *  <attribution> ::= id = <expr>  |
+ *                    id += <expr> |
+ *                    id -= <expr> |
+ *                    id *= <expr> |
+ *                    id /= <expr> |
  *                    id++             |
  *                    id--             |
  *                    ++id             |
  *                    --id
  *
  */
-attribution: ID ASSIGN operands       /* Assignment operator              */ 
-|            ID ASSIGN_PLUS operands  /* Addition assignment operator     */
-|            ID ASSIGN_MINUS operands /* Subtraction assignmewnt operator */
-|            ID ASSIGN_MUL operands   /* Multiply assignment operator     */
-|            ID ASSIGN_DIV operands   /* Divide assignment operator       */
+attribution: ID ASSIGN expr       /* Assignment operator              */ 
+|            ID ASSIGN_PLUS expr  /* Addition assignment operator     */
+|            ID ASSIGN_MINUS expr /* Subtraction assignmewnt operator */
+|            ID ASSIGN_MUL expr   /* Multiply assignment operator     */
+|            ID ASSIGN_DIV expr   /* Divide assignment operator       */
 |            ID PLUS PLUS             /* Increment postfix operator       */
 |            ID MINUS MINUS           /* Decrement postfix operator       */
 |            PLUS PLUS ID             /* Increment prefix operator        */
@@ -350,12 +350,12 @@ attribution: ID ASSIGN operands       /* Assignment operator              */
 /**
  * Parse a declaration with attribution (in BNF-notation).
  *
- *   <decl-attrib-post-let> ::= id: <type> = <operands> { , <decl-attrib-post-let> }
+ *   <decl-attrib-post-let> ::= id: <type> = <expr> { , <decl-attrib-post-let> }
  *   <decl-attrib>          ::= let <decl-attrib-post-let>
  *
  */
-decl_attrib_post_let: ID COLON type ASSIGN operands
-|                     ID COLON type ASSIGN operands COMMA decl_attrib_post_let
+decl_attrib_post_let: ID COLON type ASSIGN expr
+|                     ID COLON type ASSIGN expr COMMA decl_attrib_post_let
                { print_statement("Declaration"); }
 ;
 decl_attrib: LET decl_attrib_post_let
