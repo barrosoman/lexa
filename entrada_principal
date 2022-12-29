@@ -1,156 +1,125 @@
 #
-# Identificadores
+# Arquivo de Entrada Principal
+#
+# Este arquivo tem o objetivo de mostrar as principais
+# sintaxes ofericidas por esta linguagem, sendo demonstrado.
+#
+#   - Declaração de Variáveis
+#   - Declaração com Atribuição de Variáveis
+#   - Atribuição de Variáveis
+#   - Comandos condicionais
+#   - Laços de repetição (for-loop, while-loop & do-until-loop)
+#   - Definição de Procedimentos
+#   - Chamadas de procedimentos
 #
 
-identificador_1
-id_1
-a
-b
-c
-variavel1
-variavel2
-__variavel
-variavel594391
+let a: int = read("Insira um número inteiro não-negativo: ");
+
+if a < 0 then
+  write("Número negativo foi inserido. O programa será fechado.");
+  exit();
+end if
+
+let s: double = sum(a);
+
+write("A soma dos primeiros {} números é {}", a, s);
 
 #
-# Números
-#  - Números Inteiros
-#  - Números Ponto Flutuantes
-#  - Números Exponenciais
+# sum
+#  
+#  Esta função é responsável por retornar
+#  o valor representando a soma dos
+#  primeiros 'n' números naturais.
 #
+procedure sum(n: int): int
+  let sum: int = 0;
+  let i: int = 1;
 
-10
-16500
-65536
-5.49571
-9.384E4
-3.45539e+8
-2.3945E-4
+  while i <= n do
+    sum += i;
+    i++;
+  end while
 
-#
-# Literais
-#  - Literais de String
-#  - Literais de Caractere
-
-"uma string"
-"abc123"
-"1128341923847823581"
-"string string string"
-'a'
-'b'
-'0'
-'1'
+  return sum;
+end procedure
 
 #
-# Declarações de Variáveis
+# iterative_factorial
 #
-
-char c;
-int abc;
-short var1;
-float t1;
-double var584;
-
+#   Esta função é responsável por retornar
+#   o fatorial de 'n', isto é, n!.
 #
-# Tipos de Dados
-#
+procedure iterative_factorial(n: int): int
+  let fact: int = 1;
+  let i: int = 1;
 
-bool
-char
-short
-int
-float
-long
-double
-void
+  while i <= n do
+    fact *= i;
+    i++;
+  end while
+  
+  return fact;
+end procedure
 
 #
-# Operador de Atribuição
+# recursive_factorial
 #
-
-:=
-
+#   Esta função é responsável por retornar
+#   o fatorial de 'n', isto é, n!.
 #
-# Operadores Aritméticos
-#
+procedure recursive_factorial(n: int): int
+  if n == 1 then
+    return 1;
+  end if
 
-+
--
-*
-/
-+=
--=
-*=
-/=
+  return n * recursive_factorial(n - 1);
+end procedure
 
 #
-# Operadores Lógicos
+# avg
+#   
+#   Esta função é responsável por realizar
+#   o cálculo da média dos valores presentes
+#   em um vetor de inteiros de tamanho `arraylen`.
 #
+procedure avg(array: int[], arraylen: int): int
+  let sum: double = 0;
+  let i: int = 0;
 
-not
-and
-or
->
-<
->=
-<=
+  while i < arraylen do
+    sum += array[i];
+  end while
 
-#
-# Caracteres de Pontuação
-#
-
-.
-;
-:
-,
-(
-)
-[
-]
-{
-}
+  return sum / arraylen;
+end procedure
 
 #
-# Atribuções de Variáveis & Expressões
+# abs
+#   
+#   Esta função é responsável por retornar
+#   o módulo de um número real x, isto é, |x|.
 #
-
-int a := 10 + 20;
-double soma := 0;
-
-#
-# Comandos Condicionais
-#
-
-if (a > b) {
-  printf("a é maior que b.\n");
-} else if (a < b) {
-  printf("a é menor que b.\n");
-} else {
-  printf("a é igual a b.\n");
-}
+procedure abs(x: double): double
+  return x >= 0.0 ? x : -x;
+end procedure
 
 #
-# Comandos de Repetição
+# sqrt
 #
-
-int i := 1;
-
-while (i <= 10) {
-  i := i + 1;
-}
-
+#   Esta função é responsável por calcular
+#   a raiz quadrada de um número real x,
+#   utilizando o método de Netwon-Raphson.
 #
-# Funções
-#
+procedure sqrt(x: double): double
+  let xi: double = x;
+  let xii: double;
+  let error: double;
 
-int soma(int a, int b) {
-  return a + b;
-}
+  do
+    xii = 0.5 * (xi + x / xi);
+    error = abs(xii - xi);
+    xi = xii;
+  until error <= 1e-6;
 
-double pow(double base, int exp) {
-  if (exp = 0) {
-    return 1.0;
-  }
-
-  return base * pow(base, exp - 1);
-}
+  return xii;
+end procedure

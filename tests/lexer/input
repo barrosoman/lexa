@@ -1,0 +1,156 @@
+#
+# Identificadores
+#
+
+identificador_1
+id_1
+a
+b
+c
+variavel1
+variavel2
+__variavel
+variavel594391
+
+#
+# Números
+#  - Números Inteiros
+#  - Números Ponto Flutuantes
+#  - Números Exponenciais
+#
+
+10
+16500
+65536
+5.49571
+9.384E4
+3.45539e+8
+2.3945E-4
+
+#
+# Literais
+#  - Literais de String
+#  - Literais de Caractere
+
+"uma string"
+"abc123"
+"1128341923847823581"
+"string string string"
+'a'
+'b'
+'0'
+'1'
+
+#
+# Declarações de Variáveis
+#
+
+char c;
+int abc;
+short var1;
+float t1;
+double var584;
+
+#
+# Tipos de Dados
+#
+
+bool
+char
+short
+int
+float
+long
+double
+void
+
+#
+# Operador de Atribuição
+#
+
+:=
+
+#
+# Operadores Aritméticos
+#
+
++
+-
+*
+/
++=
+-=
+*=
+/=
+
+#
+# Operadores Lógicos
+#
+
+not
+and
+or
+>
+<
+>=
+<=
+
+#
+# Caracteres de Pontuação
+#
+
+.
+;
+:
+,
+(
+)
+[
+]
+{
+}
+
+#
+# Atribuções de Variáveis & Expressões
+#
+
+int a := 10 + 20;
+double soma := 0;
+
+#
+# Comandos Condicionais
+#
+
+if (a > b) {
+  printf("a é maior que b.\n");
+} else if (a < b) {
+  printf("a é menor que b.\n");
+} else {
+  printf("a é igual a b.\n");
+}
+
+#
+# Comandos de Repetição
+#
+
+int i := 1;
+
+while (i <= 10) {
+  i := i + 1;
+}
+
+#
+# Funções
+#
+
+int soma(int a, int b) {
+  return a + b;
+}
+
+double pow(double base, int exp) {
+  if (exp = 0) {
+    return 1.0;
+  }
+
+  return base * pow(base, exp - 1);
+}
