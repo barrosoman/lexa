@@ -1,17 +1,29 @@
 %{
-#include "lexa.h"
-    int errors = 0;
-    extern FILE * yyin;
-    extern int yylineno;
+  #include "lexa.h"
 
-    void yyerror (const char *s) {
-        printf("Erro encontrado na linha %d: %s \n", yylineno, s);
-        errors++;
-    }
+  /**
+   * It counts the amount of identified syntax errors.
+   */
+  unsigned int errors = 0;
 
-    void print_statement(char *s) {
-        printf("%s%s%s statement was recognized.\n", CONSOLE_COLOR_YELLOW, s, CONSOLE_COLOR_RESET);
-    }
+  extern FILE *yyin;
+  extern int yylineno;
+
+  /**
+   * It defines the `yyerror` function implementation.
+   */
+  void yyerror(const char *s) {
+    printf("Erro encontrado na linha %d: %s.\n", yylineno, s);
+    errors++;
+  }
+
+  /**
+   * It prints to the standard output that a statement
+   * has been recognized by the parser.
+   */
+  void print_statement(const char *s) {
+    printf("O enunciado %s%s%s foi reconhecido.\n", CONSOLE_COLOR_YELLOW, s, CONSOLE_COLOR_RESET);
+  }
 %}
 
 %expect 2
@@ -402,7 +414,7 @@ switch: SWITCH arith_expr cases END SWITCH
  *  <for-loop-update>    ::= <attribution>
  */
 for_loop: FOR for_loop_init SEMICOLON for_loop_condition SEMICOLON for_loop_update DO statements END FOR
-               { print_statement("For Loop"); }
+               { print_statement("For-Loop"); }
 ;
 for_loop_init: decl_attrib
 |              %empty
@@ -421,7 +433,7 @@ for_loop_update: attribution
  *
  */
 while_loop: WHILE logic_expr DO statements END WHILE
-               { print_statement("While Loop"); }
+               { print_statement("While-Loop"); }
 ;
 
 /**
@@ -430,7 +442,7 @@ while_loop: WHILE logic_expr DO statements END WHILE
  *  <do-until-loop> ::= do { <statements> } until <logic-expr> ;
  */
 do_until_loop: DO statements UNTIL logic_expr SEMICOLON
-               { print_statement("Do-Until Loop"); }
+               { print_statement("Do-Until-Loop"); }
 ;
 
 /**
@@ -448,21 +460,23 @@ loop: for_loop
 %%
 
 int main(int argc, char **argv) {
+  --argc, ++argv;
+
+  if (argc > 0 && argv[0][0] != '-') {
+    yyin = fopen(argv[0], "r");
+
     --argc, ++argv;
+  } else {
+    yyin = stdin;
+  }
 
-    if (argc > 0 && argv[0][0] != '-') {
-        yyin = fopen(argv[0], "r");
+  do {
+    yyparse();
+  } while (!feof(yyin));
 
-        --argc, ++argv;
-    } else {
-        yyin = stdin;
-    }
-
-    do {
-        yyparse();
-    } while (!feof(yyin));
-
-    if (errors == 0) {
-        printf("No syntatic errors during parsing!\n");
-    }
+  /* It checks if some syntax error has been found */
+  /* while the file was being parsed */
+  if (errors == 0) {
+    printf("Nenhum erro sintático foi encontrado durante a análise sintática!\n");
+  }
 }
