@@ -193,7 +193,6 @@ return_statement: RETURN operands
  *
  */
 operands: STRING 
-| ID LBRACKET arith_expr RBRACKET
 | CHARACTER 
 | logic_expr 
 | ternary
@@ -237,6 +236,7 @@ arith_term: arith_term MUL arith_factor
 |           arith_factor
 ;
 arith_factor: ID
+|             ID LBRACKET arith_expr RBRACKET /* Array indexing */
 |             PLUS ID       /* Unary plus operator  */
 |             MINUS ID      /* Unary minus operator */
 |             NUMBER
