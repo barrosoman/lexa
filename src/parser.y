@@ -1,7 +1,3 @@
-/*
-  Seção de comentátios
-*/    
-
 %{
 #include "lexa.h"
     int errors = 0;
@@ -190,8 +186,6 @@ return_statement: RETURN operands
  * Parsing operands (in BNF-notation).
  * 
  *  <operands> ::= string         |
- *                 number         | 
- *                 id             | 
  *                 id [ number ]  |
  *                 <arith-expr>   |
  *                 <logic-expr>   |
@@ -199,11 +193,8 @@ return_statement: RETURN operands
  *
  */
 operands: STRING 
-| NUMBER 
-| ID 
 | ID LBRACKET arith_expr RBRACKET
 | CHARACTER 
-| arith_expr 
 | logic_expr 
 | ternary
 | LPAREN operands RPAREN
