@@ -1,131 +1,122 @@
-Unrecognized character: # at line 1
-<id, include>
-<l_op, <>
-<id, stdio>
-Unrecognized character: . at line 1
-<id, h>
-<l_op, >>
-Unrecognized character: # at line 2
-<id, include>
-<l_op, <>
-<id, stdlib>
-Unrecognized character: . at line 2
-<id, h>
-<l_op, >>
-<id, int>
-<pointer, *array_create>
-<parenthesis, (>
-<id, int>
-<id, size>
-<parenthesis, )>
-<bracket, {>
-<id, int>
-<pointer, *array>
-<semicolon, ;>
-<id, array>
-<l_op, =>
-<parenthesis, (>
-<id, int>
-<a_op, *>
-<parenthesis, )>
-<id, malloc>
-<parenthesis, (>
-<id, sizeof>
-<parenthesis, (>
-<id, int>
-<parenthesis, )>
-<a_op, *>
-<id, size>
-<parenthesis, )>
-<semicolon, ;>
-<id, for>
-<parenthesis, (>
-<id, int>
-<id, i>
-<l_op, =>
-<number, 0>
-<semicolon, ;>
-<id, i>
-<l_op, <>
-<id, size>
-<semicolon, ;>
-<id, i>
-<a_op, ++>
-<parenthesis, )>
-<id, array>
-<bracket, [>
-<id, i>
-<bracket, ]>
-<l_op, =>
-<number, 0>
-<semicolon, ;>
-<id, return>
-<id, array>
-<semicolon, ;>
-<bracket, }>
-<id, int>
-<id, array_print>
-<parenthesis, (>
-<id, int>
-<pointer, *array>
-<comma, ,>
-<id, int>
-<id, size>
-<parenthesis, )>
-<bracket, {>
-<id, for>
-<parenthesis, (>
-<id, int>
-<id, i>
-<l_op, =>
-<number, 0>
-<semicolon, ;>
-<id, i>
-<l_op, <>
-<id, size>
-<semicolon, ;>
-<id, i>
-<a_op, ++>
-<parenthesis, )>
-<id, printf>
-<parenthesis, (>
-<string, "%d ">
-<comma, ,>
-<id, array>
-<bracket, [>
-<id, i>
-<bracket, ]>
-<parenthesis, )>
-<semicolon, ;>
-<id, printf>
-<parenthesis, (>
-<string, "\n">
-<parenthesis, )>
-<semicolon, ;>
-<bracket, }>
-<id, int>
-<id, main>
-<parenthesis, (>
-<id, void>
-<parenthesis, )>
-<bracket, {>
-<id, int>
-<pointer, *array>
-<l_op, =>
-<id, array_create>
-<parenthesis, (>
-<number, 100>
-<parenthesis, )>
-<semicolon, ;>
-<id, array_print>
-<parenthesis, (>
-<id, array>
-<comma, ,>
-<number, 100>
-<parenthesis, )>
-<semicolon, ;>
-<id, return>
-<number, 0>
-<semicolon, ;>
-<bracket, }>
-DEBUG: Line_count = 29
+A palavra-chave [33mint[0m que é um tipo de dado foi reconhecida!
+O operador aritmético [33m*[0m foi reconhecido!
+O identificador [33marray_create[0m foi reconhecido!
+O caractere de pontuação [33m([0m foi reconhecido!
+A palavra-chave [33mint[0m que é um tipo de dado foi reconhecida!
+O identificador [33msize[0m foi reconhecido!
+O caractere de pontuação [33m)[0m foi reconhecido!
+O caractere de pontuação [33m{[0m foi reconhecido!
+A palavra-chave [33mint[0m que é um tipo de dado foi reconhecida!
+O operador aritmético [33m*[0m foi reconhecido!
+O identificador [33marray[0m foi reconhecido!
+O caractere de pontuação [33m;[0m foi reconhecido!
+O identificador [33marray[0m foi reconhecido!
+O operador lógico [33m=[0m foi reconhecido!
+O caractere de pontuação [33m([0m foi reconhecido!
+A palavra-chave [33mint[0m que é um tipo de dado foi reconhecida!
+O operador aritmético [33m*[0m foi reconhecido!
+O caractere de pontuação [33m)[0m foi reconhecido!
+O identificador [33mmalloc[0m foi reconhecido!
+O caractere de pontuação [33m([0m foi reconhecido!
+O identificador [33msizeof[0m foi reconhecido!
+O caractere de pontuação [33m([0m foi reconhecido!
+A palavra-chave [33mint[0m que é um tipo de dado foi reconhecida!
+O caractere de pontuação [33m)[0m foi reconhecido!
+O operador aritmético [33m*[0m foi reconhecido!
+O identificador [33msize[0m foi reconhecido!
+O caractere de pontuação [33m)[0m foi reconhecido!
+O caractere de pontuação [33m;[0m foi reconhecido!
+A palavra-chave [33mfor[0m foi reconhecida!
+O caractere de pontuação [33m([0m foi reconhecido!
+A palavra-chave [33mint[0m que é um tipo de dado foi reconhecida!
+O identificador [33mi[0m foi reconhecido!
+O operador lógico [33m=[0m foi reconhecido!
+O número [33m0[0m foi reconhecido!
+O caractere de pontuação [33m;[0m foi reconhecido!
+O identificador [33mi[0m foi reconhecido!
+O operador lógico [33m<[0m foi reconhecido!
+O identificador [33msize[0m foi reconhecido!
+O caractere de pontuação [33m;[0m foi reconhecido!
+O identificador [33mi[0m foi reconhecido!
+O operador aritmético [33m+[0m foi reconhecido!
+O operador aritmético [33m+[0m foi reconhecido!
+O caractere de pontuação [33m)[0m foi reconhecido!
+O identificador [33marray[0m foi reconhecido!
+O caractere de pontuação [33m[[0m foi reconhecido!
+O identificador [33mi[0m foi reconhecido!
+O caractere de pontuação [33m][0m foi reconhecido!
+O operador lógico [33m=[0m foi reconhecido!
+O número [33m0[0m foi reconhecido!
+O caractere de pontuação [33m;[0m foi reconhecido!
+A palavra-chave [33mreturn[0m foi reconhecida!
+O identificador [33marray[0m foi reconhecido!
+O caractere de pontuação [33m;[0m foi reconhecido!
+O caractere de pontuação [33m}[0m foi reconhecido!
+A palavra-chave [33mint[0m que é um tipo de dado foi reconhecida!
+O identificador [33marray_print[0m foi reconhecido!
+O caractere de pontuação [33m([0m foi reconhecido!
+A palavra-chave [33mint[0m que é um tipo de dado foi reconhecida!
+O operador aritmético [33m*[0m foi reconhecido!
+O identificador [33marray[0m foi reconhecido!
+O caractere de pontuação [33m,[0m foi reconhecido!
+A palavra-chave [33mint[0m que é um tipo de dado foi reconhecida!
+O identificador [33msize[0m foi reconhecido!
+O caractere de pontuação [33m)[0m foi reconhecido!
+O caractere de pontuação [33m{[0m foi reconhecido!
+A palavra-chave [33mfor[0m foi reconhecida!
+O caractere de pontuação [33m([0m foi reconhecido!
+A palavra-chave [33mint[0m que é um tipo de dado foi reconhecida!
+O identificador [33mi[0m foi reconhecido!
+O operador lógico [33m=[0m foi reconhecido!
+O número [33m0[0m foi reconhecido!
+O caractere de pontuação [33m;[0m foi reconhecido!
+O identificador [33mi[0m foi reconhecido!
+O operador lógico [33m<[0m foi reconhecido!
+O identificador [33msize[0m foi reconhecido!
+O caractere de pontuação [33m;[0m foi reconhecido!
+O identificador [33mi[0m foi reconhecido!
+O operador aritmético [33m+[0m foi reconhecido!
+O operador aritmético [33m+[0m foi reconhecido!
+O caractere de pontuação [33m)[0m foi reconhecido!
+O identificador [33mprintf[0m foi reconhecido!
+O caractere de pontuação [33m([0m foi reconhecido!
+O literal de string [33m"%d "[0m foi reconhecido!
+O caractere de pontuação [33m,[0m foi reconhecido!
+O identificador [33marray[0m foi reconhecido!
+O caractere de pontuação [33m[[0m foi reconhecido!
+O identificador [33mi[0m foi reconhecido!
+O caractere de pontuação [33m][0m foi reconhecido!
+O caractere de pontuação [33m)[0m foi reconhecido!
+O caractere de pontuação [33m;[0m foi reconhecido!
+O identificador [33mprintf[0m foi reconhecido!
+O caractere de pontuação [33m([0m foi reconhecido!
+O literal de string [33m"\n"[0m foi reconhecido!
+O caractere de pontuação [33m)[0m foi reconhecido!
+O caractere de pontuação [33m;[0m foi reconhecido!
+O caractere de pontuação [33m}[0m foi reconhecido!
+A palavra-chave [33mint[0m que é um tipo de dado foi reconhecida!
+O identificador [33mmain[0m foi reconhecido!
+O caractere de pontuação [33m([0m foi reconhecido!
+A palavra-chave [33mvoid[0m que é um tipo de dado foi reconhecida!
+O caractere de pontuação [33m)[0m foi reconhecido!
+O caractere de pontuação [33m{[0m foi reconhecido!
+A palavra-chave [33mint[0m que é um tipo de dado foi reconhecida!
+O operador aritmético [33m*[0m foi reconhecido!
+O identificador [33marray[0m foi reconhecido!
+O operador lógico [33m=[0m foi reconhecido!
+O identificador [33marray_create[0m foi reconhecido!
+O caractere de pontuação [33m([0m foi reconhecido!
+O número [33m100[0m foi reconhecido!
+O caractere de pontuação [33m)[0m foi reconhecido!
+O caractere de pontuação [33m;[0m foi reconhecido!
+O identificador [33marray_print[0m foi reconhecido!
+O caractere de pontuação [33m([0m foi reconhecido!
+O identificador [33marray[0m foi reconhecido!
+O caractere de pontuação [33m,[0m foi reconhecido!
+O número [33m100[0m foi reconhecido!
+O caractere de pontuação [33m)[0m foi reconhecido!
+O caractere de pontuação [33m;[0m foi reconhecido!
+A palavra-chave [33mreturn[0m foi reconhecida!
+O número [33m0[0m foi reconhecido!
+O caractere de pontuação [33m;[0m foi reconhecido!
+O caractere de pontuação [33m}[0m foi reconhecido!

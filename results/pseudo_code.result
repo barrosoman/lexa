@@ -1,20 +1,105 @@
-<id, sum>
-<parenthesis, (>
-<id, a>
-<colon, :>
-<id, int>
-<comma, ,>
-<id, b>
-<colon, :>
-<id, int>
-<parenthesis, )>
-<colon, :>
-<id, int>
-<bracket, {>
-<id, return>
-<id, a>
-<a_op, +>
-<id, b>
-<semicolon, ;>
-<bracket, }>
-DEBUG: Line_count = 3
+O identificador [33msum[0m foi reconhecido!
+O caractere de pontuação [33m([0m foi reconhecido!
+O identificador [33ma[0m foi reconhecido!
+O caractere de pontuação [33m:[0m foi reconhecido!
+A palavra-chave [33mint[0m que é um tipo de dado foi reconhecida!
+O caractere de pontuação [33m,[0m foi reconhecido!
+O identificador [33mb[0m foi reconhecido!
+O caractere de pontuação [33m:[0m foi reconhecido!
+A palavra-chave [33mint[0m que é um tipo de dado foi reconhecida!
+O caractere de pontuação [33m)[0m foi reconhecido!
+O caractere de pontuação [33m:[0m foi reconhecido!
+A palavra-chave [33mint[0m que é um tipo de dado foi reconhecida!
+O caractere de pontuação [33m{[0m foi reconhecido!
+A palavra-chave [33mreturn[0m foi reconhecida!
+O identificador [33ma[0m foi reconhecido!
+O operador aritmético [33m+[0m foi reconhecido!
+O identificador [33mb[0m foi reconhecido!
+O caractere de pontuação [33m;[0m foi reconhecido!
+O caractere de pontuação [33m}[0m foi reconhecido!
+O identificador [33msum[0m foi reconhecido!
+O caractere de pontuação [33m([0m foi reconhecido!
+O identificador [33ma[0m foi reconhecido!
+O caractere de pontuação [33m:[0m foi reconhecido!
+A palavra-chave [33mint[0m que é um tipo de dado foi reconhecida!
+O caractere de pontuação [33m[[0m foi reconhecido!
+O caractere de pontuação [33m][0m foi reconhecido!
+O caractere de pontuação [33m,[0m foi reconhecido!
+O identificador [33mb[0m foi reconhecido!
+O caractere de pontuação [33m:[0m foi reconhecido!
+A palavra-chave [33mint[0m que é um tipo de dado foi reconhecida!
+O caractere de pontuação [33m[[0m foi reconhecido!
+O caractere de pontuação [33m][0m foi reconhecido!
+O caractere de pontuação [33m,[0m foi reconhecido!
+O identificador [33mlength[0m foi reconhecido!
+O caractere de pontuação [33m:[0m foi reconhecido!
+A palavra-chave [33mint[0m que é um tipo de dado foi reconhecida!
+O caractere de pontuação [33m)[0m foi reconhecido!
+O caractere de pontuação [33m:[0m foi reconhecido!
+A palavra-chave [33mvoid[0m que é um tipo de dado foi reconhecida!
+O caractere de pontuação [33m{[0m foi reconhecido!
+A palavra-chave [33mfor[0m foi reconhecida!
+O caractere de pontuação [33m([0m foi reconhecido!
+A palavra-chave [33mint[0m que é um tipo de dado foi reconhecida!
+O identificador [33mi[0m foi reconhecido!
+O operador lógico [33m=[0m foi reconhecido!
+O número [33m0[0m foi reconhecido!
+O caractere de pontuação [33m;[0m foi reconhecido!
+O identificador [33mi[0m foi reconhecido!
+O operador lógico [33m<[0m foi reconhecido!
+O identificador [33mlength[0m foi reconhecido!
+O caractere de pontuação [33m;[0m foi reconhecido!
+O identificador [33mi[0m foi reconhecido!
+O operador aritmético [33m+[0m foi reconhecido!
+O operador aritmético [33m+[0m foi reconhecido!
+O caractere de pontuação [33m)[0m foi reconhecido!
+O identificador [33ma[0m foi reconhecido!
+O caractere de pontuação [33m[[0m foi reconhecido!
+O identificador [33mi[0m foi reconhecido!
+O caractere de pontuação [33m][0m foi reconhecido!
+O operador aritmético [33m+=[0m foi reconhecido!
+O identificador [33mb[0m foi reconhecido!
+O caractere de pontuação [33m[[0m foi reconhecido!
+O identificador [33mi[0m foi reconhecido!
+O caractere de pontuação [33m][0m foi reconhecido!
+O caractere de pontuação [33m;[0m foi reconhecido!
+O caractere de pontuação [33m}[0m foi reconhecido!
+O identificador [33mgt[0m foi reconhecido!
+O caractere de pontuação [33m([0m foi reconhecido!
+O identificador [33ma[0m foi reconhecido!
+O caractere de pontuação [33m:[0m foi reconhecido!
+A palavra-chave [33mint[0m que é um tipo de dado foi reconhecida!
+O caractere de pontuação [33m,[0m foi reconhecido!
+O identificador [33mb[0m foi reconhecido!
+O caractere de pontuação [33m:[0m foi reconhecido!
+A palavra-chave [33mint[0m que é um tipo de dado foi reconhecida!
+O caractere de pontuação [33m)[0m foi reconhecido!
+O caractere de pontuação [33m:[0m foi reconhecido!
+A palavra-chave [33mbool[0m que é um tipo de dado foi reconhecida!
+O caractere de pontuação [33m{[0m foi reconhecido!
+A palavra-chave [33mreturn[0m foi reconhecida!
+O identificador [33ma[0m foi reconhecido!
+O operador lógico [33m>[0m foi reconhecido!
+O identificador [33mb[0m foi reconhecido!
+O caractere de pontuação [33m;[0m foi reconhecido!
+O caractere de pontuação [33m}[0m foi reconhecido!
+O identificador [33mstatic[0m foi reconhecido!
+O identificador [33mmul[0m foi reconhecido!
+O caractere de pontuação [33m([0m foi reconhecido!
+O identificador [33ma[0m foi reconhecido!
+O caractere de pontuação [33m:[0m foi reconhecido!
+A palavra-chave [33mint[0m que é um tipo de dado foi reconhecida!
+O caractere de pontuação [33m,[0m foi reconhecido!
+O identificador [33mb[0m foi reconhecido!
+O caractere de pontuação [33m:[0m foi reconhecido!
+A palavra-chave [33mint[0m que é um tipo de dado foi reconhecida!
+O caractere de pontuação [33m)[0m foi reconhecido!
+O caractere de pontuação [33m:[0m foi reconhecido!
+A palavra-chave [33mint[0m que é um tipo de dado foi reconhecida!
+O caractere de pontuação [33m{[0m foi reconhecido!
+A palavra-chave [33mreturn[0m foi reconhecida!
+O identificador [33ma[0m foi reconhecido!
+O operador aritmético [33m*[0m foi reconhecido!
+O identificador [33mb[0m foi reconhecido!
+O caractere de pontuação [33m;[0m foi reconhecido!
+O caractere de pontuação [33m}[0m foi reconhecido!

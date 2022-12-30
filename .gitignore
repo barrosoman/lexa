@@ -2,7 +2,12 @@
 lexa
 
 # Auto-generated lexical analyzer
-src/generated_code.c
+src/lex.yy.c
+src/parser.c
+src/parser.h
+src/parser.tab.c
+src/parser.tab.h
+src/scanner.c
 
 # Results
 results
