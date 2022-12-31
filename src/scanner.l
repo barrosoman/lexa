@@ -130,7 +130,7 @@ THEN           then
 {GTE}        { return (GTE);       }
 
 \".*\"                 { return (STRING); }
-\'({LETTER}|{DIGIT})\' { return (CHAR);}
+\'({LETTER}|{DIGIT})\' { return (CHARACTER);}
 
 {LET}       { return (LET);       }
 {DO}        { return (DO);        }
