@@ -99,7 +99,6 @@ THEN           then
 {WS}            // Ignore whitespace
 {COMMENT} {
     line_count++;
-    return (COMMENT);
 }
 {EOL} {
     line_count++;

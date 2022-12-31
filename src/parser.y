@@ -29,11 +29,6 @@
 %expect 2
 
 /**
-  * Comment
-  */                                                                                                             
-%token COMMENT
-
-/**
  * Datatype tokens.
  */
 %token VOID
@@ -140,7 +135,6 @@ statements: procedure statements
 |       procedure_call SEMICOLON statements
 |       conditional statements
 |       switch statements
-|       COMMENT statements
 |       %empty
 ;
 
