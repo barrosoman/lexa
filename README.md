@@ -1,3 +1,5 @@
+##### Troque para [Português Brasileiro](./README.pt.md) 🇧🇷.
+
 # Lexa
 ## :fountain_pen: About
 **Lexa** is a parser created on top of `flex` and `bison`. Further, the **Lexa** grammar adopts its styles from programming languages like **TypeScript**, **Pascal** and **Rust** but also add its peculiarities.
@@ -51,7 +53,7 @@ Execute the following line to compile the parser (without make)
 <p align="center"><i>gcc -o lexa src/parser.c src/scanner.c</i></p>
 
 ## :rocket: Running
-If you already followed the steps provided in the previous section, then you are ready to run our parser, for that run the following lin **(in the same directory in which the Makefile is)**.
+If you already followed the steps provided in the previous section, then you are ready to run our parser, for that run the following line.
 
 <p align="center"><i>./lexa {input}</i></p>
 
